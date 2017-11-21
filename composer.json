@@ -1,6 +1,6 @@
 {
     "name": "nordkirche/ndk",
-    "description": "Das NDK unterstüzt bei der Entwicklung von PHP-Clients, um die Datenbank der Nordkirche an eigene Webangebote anzubinden",
+    "description": "Das NDK unterstützt bei der Entwicklung von PHP-Clients, um die Datenbank der Nordkirche anzubinden",
     "type": "library",
     "authors": [
         {
