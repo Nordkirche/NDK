@@ -1,0 +1,12 @@
+<phpunit>
+    <testsuites>
+        <testsuite name="Integration tests">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+    <groups>
+        <include>
+            <group>integration</group>
+        </include>
+    </groups>
+</phpunit>

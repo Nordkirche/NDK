@@ -1,0 +1,25 @@
+<phpunit>
+    <testsuites>
+        <testsuite name="Tests against NAPI">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+    <groups>
+        <include>
+            <group>e2e</group>
+        </include>
+    </groups>
+
+    <php>
+        <env name="NDK_CONTEXT" value="Testing"/>
+        <env name="NDK_NAPI_HOST" value="" />
+        <env name="NDK_NAPI_PORT" value="443" />
+        <env name="NDK_NAPI_PATH" value="" />
+        <env name="NDK_NAPI_PROTOCOL" value="https" />
+        <env name="NDK_NAPI_VERSION" value="1" />
+        <env name="NDK_NAPI_UID" value="" />
+        <env name="NDK_NAPI_ACCESSTOKEN" value="" />
+        <env name="NDK_HTTP_AUTH_USERNAME" value="" />
+        <env name="NDK_HTTP_AUTH_PASSWORD" value="" />
+    </php>
+</phpunit>
