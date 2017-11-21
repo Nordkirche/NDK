@@ -2,6 +2,7 @@
     "name": "nordkirche/ndk",
     "description": "Das NDK unterstützt bei der Entwicklung von PHP-Clients, um die Datenbank der Nordkirche anzubinden",
     "type": "library",
+    "license": "GPL-2.0",
     "authors": [
         {
             "name": "Leon Dietsch",
