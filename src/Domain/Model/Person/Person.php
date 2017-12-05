@@ -2,19 +2,15 @@
 
 namespace Nordkirche\Ndk\Domain\Model\Person;
 
-use Nordkirche\Ndk\Domain\Model\Address;
-
 /**
  * @method \Nordkirche\Ndk\Service\Result getDataAdministrators()
  * @method \Nordkirche\Ndk\Service\Result getFunctions()
- * @method Address getAddress()
  */
 class Person extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
 {
 
     const RELATION_DATA_ADMINISTRATOR = 'data_administrators';
     const RELATION_FUNCTIONS = 'functions';
-    const RELATION_ADDRESS = 'address';
 
     const FACET_FUNCTION_TYPE = 'functions';
     const FACET_AVAILABLE_FUNCTION = 'available_functions';
@@ -53,11 +49,6 @@ class Person extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var string
      */
     protected $status;
-
-    /**
-     * @var Address
-     */
-    protected $address;
 
     /**
      * @var \Nordkirche\Ndk\Service\Result with items of \Nordkirche\Ndk\Domain\Model\Person\PersonFunction
@@ -188,14 +179,6 @@ class Person extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     public function setStatus(string $status)
     {
         $this->status = $status;
-    }
-
-    /**
-     * @param Address $address
-     */
-    public function setAddress(Address $address)
-    {
-        $this->address = $address;
     }
 
     /**
