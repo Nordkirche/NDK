@@ -9,6 +9,6 @@ $repository = $api->factory(\Nordkirche\Ndk\Domain\Repository\InstitutionReposit
 /** @var \Nordkirche\Ndk\Domain\Model\Institution\Institution $instituion */
 $instituion = $repository->getById(1930);
 
-$imageUrl = $instituion->getLogo()->render(150) . PHP_EOL;
+$imageUrl = $instituion->getLogo()->render(150);
 
 echo $imageUrl . PHP_EOL;
