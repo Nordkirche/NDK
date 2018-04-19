@@ -23,9 +23,9 @@ class PersonFunction extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     protected $title = '';
 
     /**
-     * @var array
+     * @var \Nordkirche\Ndk\Service\Result Contains a set of \Nordkirche\Ndk\Domain\Model\ContactItem
      */
-    protected $contactItems = [];
+    protected $contactItems;
 
     /**
      * @var string
@@ -82,17 +82,18 @@ class PersonFunction extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     }
 
     /**
-     * @return array
+     * @return \Nordkirche\Ndk\Service\Result Returns a set of \Nordkirche\Ndk\Domain\Model\ContactItem
      */
-    public function getContactItems(): array
+    public function getContactItems(): \Nordkirche\Ndk\Service\Result
     {
         return $this->contactItems;
     }
 
     /**
-     * @param array $contactItems
+     * @param \Nordkirche\Ndk\Service\Result $contactItems
+     * @subtype \Nordkirche\Ndk\Domain\Model\ContactItem
      */
-    public function setContactItems(array $contactItems)
+    public function setContactItems(\Nordkirche\Ndk\Service\Result $contactItems)
     {
         $this->contactItems = $contactItems;
     }
