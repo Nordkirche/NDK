@@ -2,8 +2,12 @@
 
 namespace Nordkirche\Ndk\Domain\Query;
 
+use Nordkirche\Ndk\Domain\Traits\LastModifiedFilters;
+
 class OffertoryQuery extends PageQuery
 {
+
+    use LastModifiedFilters;
 
     const SORT_BY_DATE = 'startdate';
     const SORT_BY_NAME = 'name';

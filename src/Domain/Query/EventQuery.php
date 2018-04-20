@@ -3,9 +3,12 @@
 namespace Nordkirche\Ndk\Domain\Query;
 
 use Nordkirche\Ndk\Domain\Model\Geocode;
+use Nordkirche\Ndk\Domain\Traits\LastModifiedFilters;
 
 class EventQuery extends PageQuery
 {
+
+    use LastModifiedFilters;
 
     const SORT_BY_TIME_FROM = 'time_from';
 
@@ -176,6 +179,7 @@ class EventQuery extends PageQuery
 
     /**
      * @param array $categories
+     *
      * @return EventQuery
      */
     public function setCategoriesAnd(array $categories): EventQuery
@@ -244,7 +248,6 @@ class EventQuery extends PageQuery
 
         return $this;
     }
-
 
     /**
      * @return \string[]

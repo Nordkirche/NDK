@@ -3,9 +3,13 @@
 namespace Nordkirche\Ndk\Domain\Query;
 
 use Nordkirche\Ndk\Domain\Model\Geocode;
+use Nordkirche\Ndk\Domain\Traits\LastModifiedFilters;
 
 class PersonQuery extends PageQuery
 {
+
+    use LastModifiedFilters;
+
     const SORT_BY_FIRST_NAME = 'first_name';
     const SORT_BY_LAST_NAME = 'last_name';
 
@@ -183,11 +187,10 @@ class PersonQuery extends PageQuery
      */
     public function setAvailableFunctions(array $availableFunctions): PersonQuery
     {
-        $this->availableFunctions  = $availableFunctions;
+        $this->availableFunctions = $availableFunctions;
 
         return $this;
     }
-
 
     /**
      * @return integer[]

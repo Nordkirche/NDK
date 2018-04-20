@@ -3,9 +3,13 @@
 namespace Nordkirche\Ndk\Domain\Query;
 
 use Nordkirche\Ndk\Domain\Model\Geocode;
+use Nordkirche\Ndk\Domain\Traits\LastModifiedFilters;
 
 class InstitutionQuery extends PageQuery
 {
+
+    use LastModifiedFilters;
+
     const SORT_BY_NAME = 'name';
     
     protected $sort = self::SORT_BY_NAME;
