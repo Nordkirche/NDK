@@ -24,6 +24,11 @@ abstract class AbstractResourceObject extends AbstractModel implements ResourceO
     private $metaData;
 
     /**
+     * @var \DateTime
+     */
+    private $lastModified;
+
+    /**
      * @return MetaData
      */
     public function getMetaData(): MetaData
@@ -94,6 +99,22 @@ abstract class AbstractResourceObject extends AbstractModel implements ResourceO
     public function setId(string $id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastModified(): \DateTime
+    {
+        return $this->lastModified;
+    }
+
+    /**
+     * @param string $lastModified
+     */
+    public function setLastModified(string $lastModified)
+    {
+        $this->lastModified = new \DateTime($lastModified);
     }
 
     /**
