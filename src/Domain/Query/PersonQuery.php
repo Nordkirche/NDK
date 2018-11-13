@@ -93,7 +93,7 @@ class PersonQuery extends PageQuery
     }
 
     /**
-     * @return \integer[]
+     * @return integer[]
      */
     public function getAncestorInstitutions(): array
     {
@@ -101,7 +101,7 @@ class PersonQuery extends PageQuery
     }
 
     /**
-     * @param \integer[] $ancestorInstitutions
+     * @param integer[] $ancestorInstitutions
      *
      * @return PersonQuery
      */

@@ -164,7 +164,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @param \integer[] $categories
+     * @param integer[] $categories
      *
      * @return EventQuery
      */
@@ -236,7 +236,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @return \integer[]
+     * @return integer[]
      */
     public function getZipCodes(): array
     {
@@ -244,7 +244,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @param \integer[] $zipCodes
+     * @param integer[] $zipCodes
      *
      * @return EventQuery
      */
@@ -276,7 +276,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @return \integer[]
+     * @return integer[]
      */
     public function getChurchAssociations(): array
     {
@@ -284,7 +284,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @param \integer[] $churchAssociations
+     * @param integer[] $churchAssociations
      *
      * @return EventQuery
      */
@@ -336,7 +336,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @return \integer[]
+     * @return integer[]
      */
     public function getOrganizers(): array
     {
@@ -344,7 +344,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @param \integer[] $organizers
+     * @param integer[] $organizers
      *
      * @return EventQuery
      */
@@ -456,7 +456,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @return \integer[]
+     * @return integer[]
      */
     public function getOrganizersWithParents(): array
     {
@@ -464,7 +464,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @param \integer[] $organizersWithParents
+     * @param integer[] $organizersWithParents
      *
      * @return EventQuery
      */
