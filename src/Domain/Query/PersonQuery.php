@@ -16,7 +16,7 @@ class PersonQuery extends PageQuery
     protected $sort = self::SORT_BY_LAST_NAME;
 
     protected $filterProperties = [
-        'ancestorInstitution',
+        'ancestorInstitutions',
         'geocode',
         'institutions',
         'functions',
