@@ -26,6 +26,7 @@ class EventQuery extends PageQuery
         'geocode',
         'location',
         'organizers',
+        'organizersWithParents',
         'timeFrom',
         'timeFromStart',
         'timeTo',
@@ -87,6 +88,11 @@ class EventQuery extends PageQuery
      * @var integer[]
      */
     protected $organizers = [];
+
+    /**
+     * @var integer[]
+     */
+    protected $organizersWithParents = [];
 
     /**
      * @var \DateTime
@@ -445,6 +451,26 @@ class EventQuery extends PageQuery
     public function setQuery(string $query): EventQuery
     {
         $this->query = $query;
+
+        return $this;
+    }
+
+    /**
+     * @return \integer[]
+     */
+    public function getOrganizersWithParents(): array
+    {
+        return $this->organizersWithParents;
+    }
+
+    /**
+     * @param \integer[] $organizersWithParents
+     *
+     * @return EventQuery
+     */
+    public function setOrganizersWithParents(array $organizersWithParents): EventQuery
+    {
+        $this->organizersWithParents = $organizersWithParents;
 
         return $this;
     }
