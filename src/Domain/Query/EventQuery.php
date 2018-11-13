@@ -26,6 +26,7 @@ class EventQuery extends PageQuery
         'geocode',
         'location',
         'organizers',
+        'organizersWithParents',
         'timeFrom',
         'timeFromStart',
         'timeTo',
@@ -87,6 +88,11 @@ class EventQuery extends PageQuery
      * @var integer[]
      */
     protected $organizers = [];
+
+    /**
+     * @var integer[]
+     */
+    protected $organizersWithParents = [];
 
     /**
      * @var \DateTime
@@ -158,7 +164,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @param \integer[] $categories
+     * @param integer[] $categories
      *
      * @return EventQuery
      */
@@ -230,7 +236,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @return \integer[]
+     * @return integer[]
      */
     public function getZipCodes(): array
     {
@@ -238,7 +244,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @param \integer[] $zipCodes
+     * @param integer[] $zipCodes
      *
      * @return EventQuery
      */
@@ -270,7 +276,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @return \integer[]
+     * @return integer[]
      */
     public function getChurchAssociations(): array
     {
@@ -278,7 +284,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @param \integer[] $churchAssociations
+     * @param integer[] $churchAssociations
      *
      * @return EventQuery
      */
@@ -330,7 +336,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @return \integer[]
+     * @return integer[]
      */
     public function getOrganizers(): array
     {
@@ -338,7 +344,7 @@ class EventQuery extends PageQuery
     }
 
     /**
-     * @param \integer[] $organizers
+     * @param integer[] $organizers
      *
      * @return EventQuery
      */
@@ -445,6 +451,26 @@ class EventQuery extends PageQuery
     public function setQuery(string $query): EventQuery
     {
         $this->query = $query;
+
+        return $this;
+    }
+
+    /**
+     * @return integer[]
+     */
+    public function getOrganizersWithParents(): array
+    {
+        return $this->organizersWithParents;
+    }
+
+    /**
+     * @param integer[] $organizersWithParents
+     *
+     * @return EventQuery
+     */
+    public function setOrganizersWithParents(array $organizersWithParents): EventQuery
+    {
+        $this->organizersWithParents = $organizersWithParents;
 
         return $this;
     }
