@@ -84,9 +84,9 @@ class MockModel extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     }
 
     /**
-     * @return MockSiblingModel
+     * @return MockSiblingModel|null
      */
-    public function getObject(): MockSiblingModel
+    public function getObject()
     {
         return $this->object;
     }

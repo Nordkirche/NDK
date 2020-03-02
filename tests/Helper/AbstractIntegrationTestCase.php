@@ -19,4 +19,16 @@ abstract class AbstractIntegrationTestCase extends TestCase
     {
         $this->api = $this->createApiInstance(new Configuration(1, 'foobar'));
     }
+
+    public function setUpLogger(): ArrayLogHandler {
+        $handler = new ArrayLogHandler;
+        $logger = new \Monolog\Logger(
+            'buffer',
+            [$handler]
+        );
+
+        $this->api->getConfiguration()->setLogger($logger);
+
+        return $handler;
+    }
 }
