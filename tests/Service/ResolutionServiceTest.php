@@ -389,8 +389,32 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
     /**
      * @group integration
      */
+    public function testReturnResolutionProxyWhenIncludeIsMissing()
+    {
+        /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
+        $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
+
+        $this->testSubject->resolve(
+            new \Nordkirche\Ndk\Service\Response(
+                $mockResponse,
+                $this->skipRelationshipWhenIncludeIsMissing
+            )
+        );
+
+        /** @var MockModel $object */
+        $object = $this->testSubject->get('mock-model-type', 1);
+
+        self::assertInstanceOf(MockModel::class, $object, 'Wrong object was created');
+        self::assertInstanceOf(ResolutionProxy::class, $object->getObject(), 'Wrong subobject 1st level was created.');
+    }
+
+    /**
+     * @group integration
+     */
     public function testSkipRelationShipWhenIncludeIsMissing()
     {
+        $this->api->getConfiguration()->setResolutionProxyDisabled(true);
+
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
@@ -413,6 +437,8 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
      */
     public function testLogSkipRelationShipWhenIncludeIsMissing()
     {
+        $this->api->getConfiguration()->setResolutionProxyDisabled(true);
+
         $handler = $this->setUpLogger();
 
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
@@ -496,8 +522,46 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
     /**
      * @group integration
      */
+    public function testReturnResolutionProxyWhenSubIncludeIsMissing()
+    {
+        /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
+        $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
+
+        $this->testSubject->resolve(
+            new \Nordkirche\Ndk\Service\Response(
+                $mockResponse,
+                $this->skipSubRelationshipsWhenIncludeIsMissing
+            )
+        );
+
+        /** @var MockModel $object */
+        for ($i = 0; $i < 2; $i++) {
+            $object = $this->testSubject->get('mock-model-type', '1');
+
+            self::assertTrue($object instanceof MockModel, 'Wrong object was created: ' . get_class($object));
+
+            $resultObject = $object->getResultObject();
+
+            self::assertEquals(3, $resultObject->count(), 'Resolved too many objects');
+
+            /** @var MockSiblingModel $mockSibling */
+            foreach ($resultObject as $i => $mockSibling) {
+                if ($i === 1) {
+                    self::assertInstanceOf(ResolutionProxy::class, $mockSibling);
+                } else {
+                    self::assertInstanceOf(MockSiblingModel::class, $mockSibling);
+                }
+            }
+        }
+    }
+
+    /**
+     * @group integration
+     */
     public function testSkipMissingSubIncludes()
     {
+        $this->api->getConfiguration()->setResolutionProxyDisabled(true);
+
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
@@ -520,10 +584,10 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
 
             /** @var MockSiblingModel $mockSibling */
             foreach ($resultObject as $mockSibling) {
-                self::assertInstanceOf(MockSiblingModel::class, $mockSibling);
-
                 if ($mockSibling->getId() === '3') {
                     self::fail('Relationship with id 3 should never have been resolved');
+                } else {
+                    self::assertInstanceOf(MockSiblingModel::class, $mockSibling);
                 }
             }
         }
@@ -534,6 +598,8 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
      */
     public function testLogSkippedMissingSubIncludes()
     {
+        $this->api->getConfiguration()->setResolutionProxyDisabled(true);
+
         $handler = $this->setUpLogger();
 
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
