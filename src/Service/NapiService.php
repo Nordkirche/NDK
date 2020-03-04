@@ -3,6 +3,7 @@
 namespace Nordkirche\Ndk\Service;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use Nordkirche\Ndk\Configuration;
 use Nordkirche\Ndk\Domain\Interfaces\ModelInterface;
@@ -176,7 +177,9 @@ class NapiService
      * @param QueryInterface $query
      *
      * @return ModelInterface|Result|null
-     * @throws Exception\RequestException
+     * @throws Exception\ServerException
+     * @throws Exception\ClientException
+     * @throws Exception\AccessDeniedException
      * @throws Exception\ResourceObjectNotFoundException
      * @throws Exception\TimeoutException
      */
@@ -198,7 +201,7 @@ class NapiService
             $response = $this->buildResponseObject(
                 $this->client->request('GET', $path)
             );
-        } catch (\GuzzleHttp\Exception\ConnectException $e) {
+        } catch (ConnectException $e) {
             if (strpos($e->getMessage(), 'timed out')) {
                 throw new Exception\TimeoutException(
                     'The request for ' . $path . ' timed out.',
@@ -214,9 +217,10 @@ class NapiService
             if ($response == null) {
                 throw $e;
             } else {
+
                 if ($response->getStatusCode() === 404 && $this->isPathForResourceObject($path)) {
                     throw new Exception\ResourceObjectNotFoundException(
-                        'The reqeusted resource object ' . $path . ' ist not available. ' .
+                        'The reqeusted resource object ' . $path . ' is not available. ' .
                         'Status Code: ' . $response->getStatusCode() . "\n" . print_r($e->getMessage(),
                             true),
                         1496261856,
@@ -225,9 +229,31 @@ class NapiService
                     );
                 }
 
-                if ($response->getStatusCode() >= 400) {
-                    throw new Exception\RequestException(
-                        'The reqeusted resource ' . $path . ' ist not available. ' .
+                if ($response->getStatusCode() == 401 || $response->getStatusCode() == 403) {
+                    throw new Exception\AccessDeniedException(
+                        'Access to the reqeusted resource ' . $path . ' was denied. ' .
+                        'Status Code: ' . $response->getStatusCode() . "\n" . print_r($e->getMessage(),
+                            true),
+                        1494246071,
+                        $e->getRequest()->getUri(),
+                        $e
+                    );
+                }
+
+                if ($response->getStatusCode() > 400 && $response->getStatusCode() < 500) {
+                    throw new Exception\ClientException(
+                        'Requesting the resource ' . $path . ' ended in an client side error. ' .
+                        'Status Code: ' . $response->getStatusCode() . "\n" . print_r($e->getMessage(),
+                            true),
+                        1494246071,
+                        $e->getRequest()->getUri(),
+                        $e
+                    );
+                }
+
+                if ($response->getStatusCode() >= 500 && $response->getStatusCode()) {
+                    throw new Exception\ServerException(
+                        'Requesting the resource ' . $path . ' ended in an server side error. ' .
                         'Status Code: ' . $response->getStatusCode() . "\n" . print_r($e->getMessage(),
                             true),
                         1494246071,
@@ -268,7 +294,7 @@ class NapiService
      *
      * @return array [type, id]
      */
-    protected function returnTypeAndIdFromPath($path)
+    public function returnTypeAndIdFromPath($path)
     {
         $parts = explode('/', $path);
 
