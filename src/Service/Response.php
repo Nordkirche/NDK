@@ -147,7 +147,7 @@ class Response
                 return $row['type'] === $type && $row['id'] === $id;
             });
 
-            if((bool)$result) {
+            if ((bool)$result) {
                 return array_values($result)[0];
             } else {
                 return [];

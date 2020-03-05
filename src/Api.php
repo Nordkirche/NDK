@@ -20,7 +20,7 @@ class Api
     /**
      * @var Api
      */
-    static public $api;
+    public static $api;
 
     public function __construct(Configuration $configuration)
     {

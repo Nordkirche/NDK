@@ -121,7 +121,8 @@ class NapiService
             }
         } else {
             throw new \InvalidArgumentException(
-                'The URL provided tries to access a resource the NDK does not know: ' . $type, 1495196889
+                'The URL provided tries to access a resource the NDK does not know: ' . $type,
+                1495196889
             );
         }
     }
@@ -217,12 +218,13 @@ class NapiService
             if ($response == null) {
                 throw $e;
             } else {
-
                 if ($response->getStatusCode() === 404 && $this->isPathForResourceObject($path)) {
                     throw new Exception\ResourceObjectNotFoundException(
                         'The reqeusted resource object ' . $path . ' is not available. ' .
-                        'Status Code: ' . $response->getStatusCode() . "\n" . print_r($e->getMessage(),
-                            true),
+                        'Status Code: ' . $response->getStatusCode() . "\n" . print_r(
+                            $e->getMessage(),
+                            true
+                        ),
                         1496261856,
                         $e->getRequest()->getUri(),
                         $e
@@ -232,8 +234,10 @@ class NapiService
                 if ($response->getStatusCode() == 401 || $response->getStatusCode() == 403) {
                     throw new Exception\AccessDeniedException(
                         'Access to the reqeusted resource ' . $path . ' was denied. ' .
-                        'Status Code: ' . $response->getStatusCode() . "\n" . print_r($e->getMessage(),
-                            true),
+                        'Status Code: ' . $response->getStatusCode() . "\n" . print_r(
+                            $e->getMessage(),
+                            true
+                        ),
                         1494246071,
                         $e->getRequest()->getUri(),
                         $e
@@ -243,8 +247,10 @@ class NapiService
                 if ($response->getStatusCode() > 400 && $response->getStatusCode() < 500) {
                     throw new Exception\ClientException(
                         'Requesting the resource ' . $path . ' ended in an client side error. ' .
-                        'Status Code: ' . $response->getStatusCode() . "\n" . print_r($e->getMessage(),
-                            true),
+                        'Status Code: ' . $response->getStatusCode() . "\n" . print_r(
+                            $e->getMessage(),
+                            true
+                        ),
                         1494246071,
                         $e->getRequest()->getUri(),
                         $e
@@ -254,8 +260,10 @@ class NapiService
                 if ($response->getStatusCode() >= 500 && $response->getStatusCode()) {
                     throw new Exception\ServerException(
                         'Requesting the resource ' . $path . ' ended in an server side error. ' .
-                        'Status Code: ' . $response->getStatusCode() . "\n" . print_r($e->getMessage(),
-                            true),
+                        'Status Code: ' . $response->getStatusCode() . "\n" . print_r(
+                            $e->getMessage(),
+                            true
+                        ),
                         1494246071,
                         $e->getRequest()->getUri(),
                         $e

@@ -74,7 +74,8 @@ class FactoryService
                         \GuzzleHttp\Middleware::log(
                             $configuration->getLogger(),
                             $configuration->getLogMessageFormatter()
-                        ), 'logger'
+                        ),
+                        'logger'
                     );
 
                     $clientConfiguration['handler'] = $stack;

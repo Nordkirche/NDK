@@ -33,7 +33,9 @@ class PageQuery extends AbstractQuery
     {
         if ($pageSize > 500) {
             throw new \InvalidArgumentException(
-                'Page size is not allowed to exceed 500. Given: ' . $pageSize, 1494952031);
+                'Page size is not allowed to exceed 500. Given: ' . $pageSize,
+                1494952031
+            );
         }
         $this->pageSize = $pageSize;
         $this->pageNumber = $pageNumber;
