@@ -137,13 +137,10 @@ class ResolutionService
             return $this->resolveObjectFromIncludes($type, $id);
         } catch (CouldNotResolveObjectFromIncludeException $e) {
             if ($this->configuration->isResolutionProxyDisabled()) {
-                $logger = $this->factoryService->get(Configuration::class)->getLogger();
-                $logger->info('Skipped relationship because it was not found in includes', [
-                    'type' => $type,
-                    'id' => $id
-                ]);
-
-                return null;
+                return $this->factoryService->make(
+                    MissingResourceProxy::class,
+                    ['id' => $id, 'type' => $type]
+                );
             } else {
                 return $this->factoryService->make(ResolutionProxy::class, ['uri' => $type . '/' . $id]);
             }
@@ -371,7 +368,14 @@ class ResolutionService
         $resultObject = new Result(new \SplObjectStorage(), 1, sizeof($relationData));
         foreach ($relationData as $data) {
             $object = $this->resolveRelation($data);
-            if ($object !== null) {
+
+            if ($object instanceof MissingResourceProxy) {
+                $logger = $this->factoryService->get(Configuration::class)->getLogger();
+                $logger->info('Skipped relationship because it was not found in includes', [
+                    'type' => $object->getType(),
+                    'id' => $object->getId()
+                ]);
+            } elseif ($object !== null) {
                 $resultObject->getObjects()->attach($object);
             }
         }

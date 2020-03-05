@@ -11,7 +11,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
     /**
      * @var ResolutionService
      */
-    private $testSubject;
+    private $resolutionService;
 
     private $singelPrimaryData = [
         'id' => 1,
@@ -279,7 +279,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
             'mock-model-type' => \Nordkirche\Ndk\Service\MockModel::class,
             'mock-model-sibling-type' => \Nordkirche\Ndk\Service\MockSiblingModel::class
         ]);
-        $this->testSubject = $this->api->factory(ResolutionService::class);
+        $this->resolutionService = $this->api->factory(ResolutionService::class);
     }
 
     /**
@@ -290,7 +290,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 [
@@ -306,7 +306,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var MockModel $object */
         for ($i = 0; $i < 2; $i++) {
 
-            $object = $this->testSubject->get('mock-model-type', $this->includedData[$i]['id']);
+            $object = $this->resolutionService->get('mock-model-type', $this->includedData[$i]['id']);
 
             self::assertTrue($object instanceof MockModel, 'Wrong object was created');
             self::assertEquals($object->getId(), $this->includedData[$i]['id'], 'Wrong value');
@@ -324,7 +324,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 $this->searchData
@@ -332,7 +332,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         );
 
         /** @var MockModel $object */
-        $object = $this->testSubject->get('mock-model-type', 1);
+        $object = $this->resolutionService->get('mock-model-type', 1);
 
         self::assertTrue($object instanceof MockModel, 'Wrong object was created');
 
@@ -348,7 +348,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 $this->resolveIncludeDataMultipleRelations
@@ -356,7 +356,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         );
 
         /** @var MockModel $object */
-        $object = $this->testSubject->get('mock-model-type', 1);
+        $object = $this->resolutionService->get('mock-model-type', 1);
 
         self::assertInstanceOf(MockModel::class, $object, 'Wrong object was created');
         self::assertInstanceOf(Result::class, $object->getResultObject(), 'Result object is missing.');
@@ -372,7 +372,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 $this->resolveIncludeData
@@ -380,10 +380,10 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         );
 
         /** @var MockModel $object */
-        $object = $this->testSubject->get('mock-model-type', 1);
+        $object = $this->resolutionService->get('mock-model-type', 1);
 
         self::assertInstanceOf(MockModel::class, $object, 'Wrong object was created');
-        self::assertInstanceOf(MockSiblingModel::class, $object->getObject(), 'Wrong subobject 1st level was created.');
+        self::assertInstanceOf(MockSiblingModel::class, $object->getObjectRaw(), 'Wrong subobject 1st level was created.');
     }
 
     /**
@@ -394,7 +394,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 $this->skipRelationshipWhenIncludeIsMissing
@@ -402,10 +402,10 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         );
 
         /** @var MockModel $object */
-        $object = $this->testSubject->get('mock-model-type', 1);
+        $object = $this->resolutionService->get('mock-model-type', 1);
 
         self::assertInstanceOf(MockModel::class, $object, 'Wrong object was created');
-        self::assertInstanceOf(ResolutionProxy::class, $object->getObject(), 'Wrong subobject 1st level was created.');
+        self::assertInstanceOf(ResolutionProxy::class, $object->getObjectRaw(), 'Wrong subobject 1st level was created.');
     }
 
     /**
@@ -418,7 +418,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 $this->skipRelationshipWhenIncludeIsMissing
@@ -426,16 +426,17 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         );
 
         /** @var MockModel $object */
-        $object = $this->testSubject->get('mock-model-type', 1);
+        $object = $this->resolutionService->get('mock-model-type', 1);
 
         self::assertInstanceOf(MockModel::class, $object, 'Wrong object was created');
-        self::assertNull($object->getObject(), 'Wrong subobject 1st level was created.');
+        self::assertInstanceOf(MissingResourceProxy::class, $object->getObjectRaw(), 'Wrong object was created');
+        self::assertNull($object->getObject());
     }
 
     /**
      * @group integration
      */
-    public function testLogSkipRelationShipWhenIncludeIsMissing()
+    public function testLogSkipRelationshipWhenIncludeIsMissing()
     {
         $this->api->getConfiguration()->setResolutionProxyDisabled(true);
 
@@ -444,14 +445,21 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 $this->skipRelationshipWhenIncludeIsMissing
             )
         );
 
-        $this->testSubject->get('mock-model-type', 1);
+        /** @var MockModel $mockModel */
+        $mockModel = $this->resolutionService->get('mock-model-type', 1);
+
+        $object = $mockModel->getObjectRaw();
+
+        self::assertInstanceOf(MissingResourceProxy::class, $object);
+
+        $mockModel->getObject(); // this should trigger a log entry
 
         $log = $handler->close();
 
@@ -477,7 +485,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 $this->resolveSubIncludeData
@@ -485,11 +493,11 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         );
 
         /** @var MockModel $object */
-        $object = $this->testSubject->get('mock-model-type', 1);
+        $object = $this->resolutionService->get('mock-model-type', 1);
 
         self::assertInstanceOf(MockModel::class, $object, 'Wrong object was created');
-        self::assertInstanceOf(MockSiblingModel::class, $object->getObject(), 'Wrong subobject 1st level was created.');
-        self::assertInstanceOf(MockSiblingModel::class, $object->getObject()->getObject(),
+        self::assertInstanceOf(MockSiblingModel::class, $object->getObjectRaw(), 'Wrong subobject 1st level was created.');
+        self::assertInstanceOf(MockSiblingModel::class, $object->getObjectRaw()->getObject(),
             'Wrong subobject 2nd level was created.');
     }
 
@@ -508,7 +516,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
             ]
         );
 
-        $this->testSubject->resolve($response);
+        $this->resolutionService->resolve($response);
 
         self::assertTrue($response->getPrimaryData() instanceof MockModel, 'Wrong object was created');
         self::assertEquals($response->getPrimaryData()->getId(), $this->singelPrimaryData['id'], 'Wrong value');
@@ -527,7 +535,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 $this->skipSubRelationshipsWhenIncludeIsMissing
@@ -536,7 +544,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
 
         /** @var MockModel $object */
         for ($i = 0; $i < 2; $i++) {
-            $object = $this->testSubject->get('mock-model-type', '1');
+            $object = $this->resolutionService->get('mock-model-type', '1');
 
             self::assertTrue($object instanceof MockModel, 'Wrong object was created: ' . get_class($object));
 
@@ -565,7 +573,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 $this->skipSubRelationshipsWhenIncludeIsMissing
@@ -574,7 +582,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
 
         /** @var MockModel $object */
         for ($i = 0; $i < 2; $i++) {
-            $object = $this->testSubject->get('mock-model-type', '1');
+            $object = $this->resolutionService->get('mock-model-type', '1');
 
             self::assertTrue($object instanceof MockModel, 'Wrong object was created: ' . get_class($object));
 
@@ -605,7 +613,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         /** @var \Psr\Http\Message\ResponseInterface $mockResponse */
         $mockResponse = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
 
-        $this->testSubject->resolve(
+        $this->resolutionService->resolve(
             new \Nordkirche\Ndk\Service\Response(
                 $mockResponse,
                 $this->skipSubRelationshipsWhenIncludeIsMissing

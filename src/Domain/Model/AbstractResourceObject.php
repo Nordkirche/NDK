@@ -3,6 +3,9 @@
 namespace Nordkirche\Ndk\Domain\Model;
 
 use Nordkirche\Ndk\Service\Interfaces\ResourceObjectInterface;
+use Nordkirche\Ndk\Service\MissingResourceProxy;
+use Nordkirche\Ndk\Service\NapiService;
+use Nordkirche\Ndk\Service\ResolutionProxy;
 
 abstract class AbstractResourceObject extends AbstractModel implements ResourceObjectInterface
 {
@@ -123,7 +126,7 @@ abstract class AbstractResourceObject extends AbstractModel implements ResourceO
      */
     public function __toString()
     {
-        return \Nordkirche\Ndk\Service\NapiService::returnNapiUrlFromObject($this);
+        return NapiService::returnNapiUrlFromObject($this);
     }
 
     /**
@@ -140,16 +143,16 @@ abstract class AbstractResourceObject extends AbstractModel implements ResourceO
     {
         if (substr($method, 0, 3) === 'get') {
             $attribute = lcfirst(substr($method, 3));
-
             $value = $this->{$attribute};
 
-            if ($value instanceof \Nordkirche\Ndk\Service\ResolutionProxy) {
+            if ($value instanceof ResolutionProxy) {
                 $this->{$attribute} = $value->resolve();
-
-                return $this->{$attribute};
-            } else {
-                return $value;
+            } elseif ($value instanceof MissingResourceProxy) {
+                $value->logAccess();
+                $this->{$attribute} = null;
             }
+
+            return $this->{$attribute};
         }
     }
 }

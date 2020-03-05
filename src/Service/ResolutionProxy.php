@@ -5,10 +5,10 @@ namespace Nordkirche\Ndk\Service;
 use Nordkirche\Ndk\Domain\Interfaces\ModelInterface;
 use Nordkirche\Ndk\Domain\Model\ResourcePlaceholder;
 use Nordkirche\Ndk\Service\Exception\NdkException;
+use Nordkirche\Ndk\Service\Interfaces\ProxyInterface;
 
-class ResolutionProxy
+class ResolutionProxy implements ProxyInterface
 {
-
     /**
      * @var string
      */
@@ -53,7 +53,7 @@ class ResolutionProxy
 
     private function buildResourcePlaceholder(NdkException $exception): ResourcePlaceholder
     {
-        list($type, $id) = $this->napiService->returnTypeAndIdFromPath($this->uri);
+        [$type, $id] = $this->napiService->returnTypeAndIdFromPath($this->uri);
 
         $placeholder = new ResourcePlaceholder();
         $placeholder->setLinkedException($exception);

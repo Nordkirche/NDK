@@ -4,7 +4,6 @@ namespace Nordkirche\Ndk\Service\Interfaces;
 
 interface ResourceObjectInterface
 {
-
     /**
      * @return string
      */
