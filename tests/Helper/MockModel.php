@@ -9,6 +9,7 @@ use Nordkirche\Ndk\Service\Result;
 
 /**
  * @method MockSiblingModel getObject()
+ * @property MockSiblingModel object
  */
 class MockModel extends AbstractResourceObject
 {
