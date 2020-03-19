@@ -2,7 +2,8 @@
 
 namespace Nordkirche\Ndk\Service;
 
-use Nordkirche\Ndk\Service\ModelDecoratorService;
+use Nordkirche\Ndk\Helper\MockModel;
+use Nordkirche\Ndk\Helper\MockSiblingModel;
 use Prophecy\Prophecy\ObjectProphecy;
 
 class ModelDecoratorServiceTest extends \Nordkirche\Ndk\Helper\AbstractIntegrationTestCase

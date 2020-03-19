@@ -4,6 +4,8 @@ namespace Nordkirche\Ndk\Service;
 
 use Monolog\Logger;
 use Nordkirche\Ndk\Helper\AbstractIntegrationTestCase;
+use Nordkirche\Ndk\Helper\MockModel;
+use Nordkirche\Ndk\Helper\MockSiblingModel;
 
 class ResolutionServiceTest extends AbstractIntegrationTestCase
 {
@@ -276,8 +278,8 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
     {
         parent::setUp();
         $this->api->getConfiguration()->setTypeClassMap([
-            'mock-model-type' => \Nordkirche\Ndk\Service\MockModel::class,
-            'mock-model-sibling-type' => \Nordkirche\Ndk\Service\MockSiblingModel::class
+            'mock-model-type' => \Nordkirche\Ndk\Helper\MockModel::class,
+            'mock-model-sibling-type' => \Nordkirche\Ndk\Helper\MockSiblingModel::class
         ]);
         $this->resolutionService = $this->api->factory(ResolutionService::class);
     }
