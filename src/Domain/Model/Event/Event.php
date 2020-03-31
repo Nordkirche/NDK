@@ -155,7 +155,12 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var string
      */
     protected $title;
-            
+
+    /**
+     * @var string
+     */
+    protected $externalLink;
+
     /**
      * @var array
      */
@@ -619,7 +624,23 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     {
         $this->title = $title;
     }
-        
+
+    /**
+     * @return string
+     */
+    public function getExternalLink()
+    {
+        return $this->externalLink;
+    }
+
+    /**
+     * @param string $externalLink
+     */
+    public function setExternalLink($externalLink)
+    {
+        $this->externalLink = $externalLink;
+    }
+
     /**
      * @return array
      */
