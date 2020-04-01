@@ -628,7 +628,7 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     /**
      * @return string
      */
-    public function getExternalLink()
+    public function getExternalLink(): string
     {
         return $this->externalLink;
     }
@@ -636,7 +636,7 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     /**
      * @param string $externalLink
      */
-    public function setExternalLink($externalLink)
+    public function setExternalLink(string $externalLink)
     {
         $this->externalLink = $externalLink;
     }
