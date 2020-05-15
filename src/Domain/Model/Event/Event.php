@@ -10,7 +10,7 @@ use Nordkirche\Ndk\Domain\Model\Institution\Institution;
  * @method Address getAddress()
  * @method Institution getHostInstitution()
  * @method Institution getChiefOrganizer()
- * @method \Nordkirche\Ndk\Service\Result getCategories()
+ * @method Category getCategories()
  * @method \Nordkirche\Ndk\Service\Result getOrganizers()
  * @method \Nordkirche\Ndk\Service\Result getParticipants()
  */
@@ -18,6 +18,7 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
 {
     const RELATION_ADDRESS = 'address';
     const RELATION_CHIEF_ORGANIZER = 'chief_organizer';
+    const RELATION_CATEGORY = 'categories';
 
     const FACET_EVENT_TYPE = 'event_types';
 
