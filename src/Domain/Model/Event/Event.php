@@ -3,14 +3,13 @@
 namespace Nordkirche\Ndk\Domain\Model\Event;
 
 use Nordkirche\Ndk\Domain\Model\Address;
-use Nordkirche\Ndk\Domain\Model\Category;
 use Nordkirche\Ndk\Domain\Model\Institution\Institution;
 
 /**
  * @method Address getAddress()
  * @method Institution getHostInstitution()
  * @method Institution getChiefOrganizer()
- * @method Category getCategories()
+ * @method \Nordkirche\Ndk\Service\Result getCategories()
  * @method \Nordkirche\Ndk\Service\Result getOrganizers()
  * @method \Nordkirche\Ndk\Service\Result getParticipants()
  */
@@ -173,7 +172,7 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     protected $address;
             
     /**
-     * @var Category
+     * @var \Nordkirche\Ndk\Service\Result with items of type \Nordkirche\Ndk\Domain\Model\Category
      */
     protected $categories;
             
@@ -658,7 +657,6 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
         $this->vocalSoloists = $vocalSoloists;
     }
 
-    
     /**
      * @param Address $address
      */
@@ -668,13 +666,14 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     }
     
     /**
-     * @param Category $categories
+     * @param \Nordkirche\Ndk\Service\Result $categories
+     * @subtype \Nordkirche\Ndk\Domain\Model\Category
      */
-    public function setCategories(Category $categories)
+    public function setCategories(\Nordkirche\Ndk\Service\Result $categories)
     {
         $this->categories = $categories;
     }
-    
+
     /**
      * @param Institution $chiefOrganizer
      */
@@ -683,7 +682,6 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
         $this->chiefOrganizer = $chiefOrganizer;
     }
 
-    
     /**
      * @param Institution $hostInstitution
      */

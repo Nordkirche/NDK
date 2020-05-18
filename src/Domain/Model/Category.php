@@ -9,6 +9,7 @@ namespace Nordkirche\Ndk\Domain\Model;
  */
 class Category extends AbstractResourceObject
 {
+
     /**
      * @var string
      */
@@ -71,4 +72,5 @@ class Category extends AbstractResourceObject
     {
         $this->parent = $parent;
     }
+
 }
