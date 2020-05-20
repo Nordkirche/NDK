@@ -6,7 +6,6 @@ use Doctrine\Common\Cache\CacheProvider;
 
 class Configuration
 {
-
     const CONTEXT_PRODUCTION = 'Production';
     const CONTEXT_DEBUGGING = 'Debugging';
     const CONTEXT_TESTING = 'Testing';
@@ -89,6 +88,11 @@ class Configuration
     protected $logMessageFormatter;
 
     /**
+     * @var boolean
+     */
+    protected $resolutionProxyDisabled = false;
+
+    /**
      * Maps a resource object type to a specific class
      * @var array
      */
@@ -153,6 +157,7 @@ class Configuration
 
     /**
      * Set the timeout for all requests in seconds
+     *
      * @param float $requestTimeout
      */
     public function setRequestTimeout(float $requestTimeout)
@@ -501,6 +506,26 @@ class Configuration
     public function setLogMessageFormatter(\GuzzleHttp\MessageFormatter $logMessageFormatter)
     {
         $this->logMessageFormatter = $logMessageFormatter;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isResolutionProxyDisabled(): bool
+    {
+        return $this->resolutionProxyDisabled;
+    }
+
+    /**
+     * @param bool $resolutionProxyDisabled
+     *
+     * @return Configuration
+     */
+    public function setResolutionProxyDisabled(bool $resolutionProxyDisabled): Configuration
+    {
+        $this->resolutionProxyDisabled = $resolutionProxyDisabled;
 
         return $this;
     }

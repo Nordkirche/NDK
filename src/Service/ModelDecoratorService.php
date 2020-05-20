@@ -4,6 +4,7 @@ namespace Nordkirche\Ndk\Service;
 
 use Nordkirche\Ndk\Domain\Interfaces\ModelInterface;
 use Nordkirche\Ndk\Domain\Model\AbstractModel;
+use Nordkirche\Ndk\Service\Interfaces\ProxyInterface;
 use phpDocumentor\Reflection\DocBlockFactory;
 
 class ModelDecoratorService
@@ -58,10 +59,10 @@ class ModelDecoratorService
     {
         $setterMethodName = 'set' . StringUtilites::camelize($property);
         if (method_exists($model, $setterMethodName)) {
-            if ($model instanceof AbstractModel && $value instanceof ResolutionProxy) {
+            if ($model instanceof AbstractModel && ($value instanceof ProxyInterface)) {
                 $model->__setProxyInstance($property, $value);
             } else {
-                list($expectedType, $isBuiltIn, $subType) =
+                [$expectedType, $isBuiltIn, $subType] =
                     $this->reflectionService->returnExpectedType($model, $setterMethodName);
 
                 $value = $this->transform($value, $expectedType, $isBuiltIn, $subType);

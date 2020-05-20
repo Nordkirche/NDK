@@ -2,7 +2,12 @@
 
 namespace Nordkirche\Ndk\Service;
 
-class MockModel extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
+use Nordkirche\Ndk\Domain\Model\AbstractResourceObject;
+
+/**
+ * @method MockSiblingModel getObject()
+ */
+class MockModel extends AbstractResourceObject
 {
 
     /**
@@ -84,19 +89,19 @@ class MockModel extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     }
 
     /**
-     * @return MockSiblingModel
-     */
-    public function getObject(): MockSiblingModel
-    {
-        return $this->object;
-    }
-
-    /**
      * @param MockSiblingModel $object
      */
     public function setObject(MockSiblingModel $object)
     {
         $this->object = $object;
+    }
+
+    /**
+     * @return MockSiblingModel|ResolutionProxy|MissingResourceProxy
+     */
+    public function getObjectRaw()
+    {
+        return $this->object;
     }
 
     /**

@@ -146,7 +146,12 @@ class Response
             $result = array_filter($this->included, function ($row) use ($type, $id) {
                 return $row['type'] === $type && $row['id'] === $id;
             });
-            return array_values($result)[0];
+
+            if ((bool)$result) {
+                return array_values($result)[0];
+            } else {
+                return [];
+            }
         }
 
         return $this->included;

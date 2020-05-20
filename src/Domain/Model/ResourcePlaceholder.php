@@ -3,6 +3,7 @@
 namespace Nordkirche\Ndk\Domain\Model;
 
 use Nordkirche\Ndk\Api;
+use Nordkirche\Ndk\Service\Exception\NdkException;
 
 /**
  * Object is used when a resource could not be found.
@@ -17,8 +18,23 @@ use Nordkirche\Ndk\Api;
  */
 class ResourcePlaceholder extends AbstractResourceObject
 {
+    /**
+     * @var NdkException
+     */
+    private $linkedException = null;
+
     public function getLabel(): string
     {
         return Api::$api->getConfiguration()->getPlaceholderLabelClosure()($this);
+    }
+
+    public function getLinkedException(): NdkException
+    {
+        return $this->linkedException;
+    }
+
+    public function setLinkedException(NdkException $linkedException)
+    {
+        $this->linkedException = $linkedException;
     }
 }

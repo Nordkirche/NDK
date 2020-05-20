@@ -10,6 +10,8 @@ use Nordkirche\Ndk\Domain\Model\Address;
  * @method \Nordkirche\Ndk\Service\Result getMapChildren()
  * @method \Nordkirche\Ndk\Service\Result getCategories()
  * @method \Nordkirche\Ndk\Service\Result getParentInstitutions()
+ * @method \Nordkirche\Ndk\Service\Result getMembers()
+ * @method \Nordkirche\Ndk\Service\Result getMemberships()
  */
 class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
 {
@@ -18,6 +20,8 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     const RELATION_ADDRESS = 'address';
     const RELATION_INSTITUTION_TYPE = 'institution_type';
     const RELATION_PARENT_INSTITUTIONS = 'parent_institutions';
+    const RELATION_MEMBERS = 'members';
+    const RELATION_MEMBERSHIPS = 'memberships';
 
     const FACET_INSTITUTION_TYPE = 'institution_types';
 
@@ -117,7 +121,7 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     protected $address;
 
     /**
-     * @var \Nordkirche\Ndk\Service\Result containts a set of \Nordkirche\Ndk\Domain\CategoryModel
+     * @var \Nordkirche\Ndk\Service\Result containts a set of \Nordkirche\Ndk\Domain\Category
      */
     protected $categories;
 
@@ -127,14 +131,24 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     protected $institutionType;
 
     /**
-     * @var \Nordkirche\Ndk\Service\Result contains a set of \Nordkirche\Ndk\Domain\Institution\InstitutionModel
+     * @var \Nordkirche\Ndk\Service\Result contains a set of \Nordkirche\Ndk\Domain\Institution\Institution
      */
     protected $mapChildren;
 
     /**
-     * @var \Nordkirche\Ndk\Service\Result contains a set of \Nordkirche\Ndk\Domain\Institution\InstitutionModel
+     * @var \Nordkirche\Ndk\Service\Result contains a set of \Nordkirche\Ndk\Domain\Institution\Institution
      */
     protected $parentInstitutions;
+
+    /**
+     * @var \Nordkirche\Ndk\Service\Result contains a set of \Nordkirche\Ndk\Domain\Institution\Institution
+     */
+    protected $members;
+
+    /**
+     * @var \Nordkirche\Ndk\Service\Result contains a set of \Nordkirche\Ndk\Domain\Institution\Institution
+     */
+    protected $memberships;
 
     /**
      * @return string
@@ -475,5 +489,23 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     public function setParentInstitutions(\Nordkirche\Ndk\Service\Result $parentInstitutions)
     {
         $this->parentInstitutions = $parentInstitutions;
+    }
+
+    /**
+     * @param \Nordkirche\Ndk\Service\Result $members
+     * @subtype \Nordkirche\Ndk\Domain\Institution\Institution
+     */
+    public function setMembers(\Nordkirche\Ndk\Service\Result $members)
+    {
+        $this->members = $members;
+    }
+
+    /**
+     * @param \Nordkirche\Ndk\Service\Result $memberships
+     * @subtype \Nordkirche\Ndk\Domain\Institution\Institution
+     */
+    public function setMemberships(\Nordkirche\Ndk\Service\Result $memberships)
+    {
+        $this->memberships = $memberships;
     }
 }

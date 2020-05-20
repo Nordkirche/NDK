@@ -1,0 +1,128 @@
+{
+  "data": {
+    "id": "12054",
+    "type": "institutions",
+    "links": {
+      "self": "https://www.nordkirche.de/api/v1/institutions/12054"
+    },
+    "attributes": {
+      "abbreviation": "",
+      "description": "Die Gemeinderäume \"middenmang\" der Kirchengemeinde Rostock Lütten Klein befinden sich auf der Rückseite der Kita \"Sonnenkinderhaus\".\nIn unseren Räumlichkeiten finden verschiedene Veranstaltungen der Kirchengemeinde statt, die Termine und Details zu den Veranstaltungen in den Gemeinderäumen können Sie aus dem aktuellen Gemeindeblatt entnehmen. Das komplete Angebot der Kirchengemeinde, auch von anderen Veranstaltungen und Nachrichten der Gemeinde, finden Sie auf unserer Internetseite.\nwww.kirchengemeinde-luettenklein.de\n\nWir möchten wir darauf hinweisen, dass unsere Gemeinderäume \"middenmang\" in der Helsinkier Str. 40, für Familien Feiern, etc., nicht zu mieten sind. Bitte nutzen Sie daher andere Möglichkeiten außerhalb unserer Gemeinderäumlichkeiten. Wir bitten um Ihr Verständnis.\n\nDienstags von 17 - 18 Uhr ist die Sprechzeit unserer Pastorin Uta Möhr in den Gemeinderäumen.\n\nIhre Kirchengemeinde Lütten Klein\n\n",
+      "is_authorized_collector": false,
+      "is_open_church": false,
+      "name": "Gemeinderäume Rostock Lütten Klein",
+      "official_name": "\"middenmang\"",
+      "tourism_key": "",
+      "vcard_link": "",
+      "vcard_type": 0,
+      "year_of_construction": 0,
+      "logo": {
+        "id": 22166,
+        "file_name": "logo_kirche_Internet_LK.jpg",
+        "details": {
+          "description": null,
+          "alternative": "",
+          "caption": null,
+          "license": 0,
+          "copyright": "",
+          "related_files": 0
+        },
+        "mime_type": "image/jpeg",
+        "size": 115573,
+        "title": "logo kirche Internet LK",
+        "url": "/api/v1/images/37251",
+        "image": {
+          "width": 1859,
+          "height": 1063
+        }
+      },
+      "picture": {
+        "id": 20766,
+        "file_name": "IMG_0715.JPG",
+        "details": {
+          "description": null,
+          "alternative": "",
+          "caption": null,
+          "license": 0,
+          "copyright": "",
+          "related_files": 0
+        },
+        "mime_type": "image/jpeg",
+        "size": 659387,
+        "title": "IMG 0715",
+        "url": "/api/v1/images/35638",
+        "image": {
+          "width": 1966,
+          "height": 1552
+        }
+      },
+      "media": [],
+      "bank_details": null,
+      "contact_items": [
+        {
+          "id": 86172,
+          "type": "Website",
+          "value": "www.kirchengemeinde-lüttenklein.de"
+        },
+        {
+          "id": 86174,
+          "type": "E-Mail",
+          "value": "rostock-luetten-klein@elkm.de"
+        }
+      ],
+      "available_functions": [],
+      "infos": [],
+      "map_visibility": true,
+      "last_modified": "2020-03-04T09:31:47+01:00",
+      "opening_hours": []
+    },
+    "relationships": {
+      "address": {
+        "links": {
+          "self": "https://www.nordkirche.de/api/v1/institutions/12054/relationships/address",
+          "related": "https://www.nordkirche.de/api/v1/institutions/12054/address"
+        }
+      },
+      "institution_type": {
+        "links": {
+          "self": "https://www.nordkirche.de/api/v1/institutions/12054/relationships/institution_type",
+          "related": "https://www.nordkirche.de/api/v1/institutions/12054/institution_type"
+        }
+      },
+      "categories": {
+        "links": {
+          "self": "https://www.nordkirche.de/api/v1/institutions/12054/relationships/categories",
+          "related": "https://www.nordkirche.de/api/v1/institutions/12054/categories"
+        }
+      },
+      "map_children": {
+        "links": {
+          "self": "https://www.nordkirche.de/api/v1/institutions/12054/relationships/map_children",
+          "related": "https://www.nordkirche.de/api/v1/institutions/12054/map_children"
+        }
+      },
+      "parent_institutions": {
+        "links": {
+          "self": "https://www.nordkirche.de/api/v1/institutions/12054/relationships/parent_institutions",
+          "related": "https://www.nordkirche.de/api/v1/institutions/12054/parent_institutions"
+        }
+      },
+      "members": {
+        "links": {
+          "self": "https://www.nordkirche.de/api/v1/institutions/12054/relationships/members",
+          "related": "https://www.nordkirche.de/api/v1/institutions/12054/members"
+        }
+      },
+      "memberships": {
+        "links": {
+          "self": "https://www.nordkirche.de/api/v1/institutions/12054/relationships/memberships",
+          "related": "https://www.nordkirche.de/api/v1/institutions/12054/memberships"
+        }
+      }
+    }
+  },
+  "meta": {
+  },
+  "links": {
+  }
+}

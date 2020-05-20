@@ -17,8 +17,6 @@ Deshalb wird in dieser Dokumentation nicht direkt auf Dateien, sondern auf Names
 
 ## Installation
 
-Es wird mindestens PHP 7.0 vorausgesetzt.
-
 Die neuste Version installieren:
 
 ```bash
@@ -152,7 +150,10 @@ nachgeladen werden. Wir erklären dieses Verhalten einmal Anhand der Institution
 
 Instituionen haben Relationen zu anderen Ressourcen-Objekten, z.B. zu Ihrer Adresse oder ihrem Typ. 
 Ein Aufruf der Methode `getAddress()` führt dazu, dass eine weitere Anfrage an die NAPI gestellt wird, 
-um die Adressdaten der Institution zu erhalten.
+um die Adressdaten der Institution zu erhalten. 
+
+Kann eine Ressource nicht dynamisch nachgeladen werden, so wird ein `ResourcePlaceholder`-Objekt zurück gegeben.
+Dieses beinhaltet ein generiertes Label für die Ressource und ggf. den Grund für das fehlgeschlagene Nachladen.
 
 Möchte man auf diese Weise eine Adressliste ausgeben, wird für jeden Eintrag in der Adressliste eine weitere Anfrage
 gegen die NAPI gestellt.
@@ -176,7 +177,7 @@ Aus dem Namen des Repositories lässt sich immer auf die zugehörige Resourcen-K
 
     \Nordkirche\Ndk\Domain\Repository\PersonRepository -> \Nordkirche\Ndk\Domain\Model\Person\Person
 
-Includes können auch verschachtelt werden, um die Relationen von Relationen zu laden:
+Includes können auch verschachtelt werden, um die Relationen von Relationen zu inkludieren:
 
 ```php
 <?php
@@ -201,9 +202,21 @@ Daher sollte ganz bewusst ausgewählt werden, welche Relationen für welche Abfr
 Anhand des Beispiels `examples/3_includes.php` lässt sich der Unterschied zwischen Anfragen mit und ohne `setIncludes()`
 nachvollziehen.
 
+#### Dynamisches Nachladen vs. Inkludierung
+
+Möchte man, dass Ressourcen niemals dynamisch nachgeladen werden, so besteht die Möglichkeit dies zu deaktiveren:
+
+```php
+<?php
+$configuration->setResolutionProxyDisabled(true);
+```
+
+Diese Einstellung führt dazu, dass nicht inkludierte Relationen `null` zurück liefern. Der Zugriff auf nicht inkludierte 
+Relationen wird geloggt und kann ausgegeben werden. Dazu mehr im Abschnitt Logging.
+
 ### Eigene Relationen zu Resourcen-Objekten
 
-Manchmal ist es gewünscht, Relationen z.B. zu Personen der Nordkirche an eigene Objekten in einer Datenbank herzustellen.
+Manchmal ist es gewünscht, Relationen z.B. zu Personen der Nordkirche für eigene Objekten in einer Datenbank herzustellen.
 Dazu ist es möglich ein Resourcen-Objekt des NDK in eine URI umzuwandeln, welche gespeichert werden kann.
 
 Diese URIs erhält man beim Casten eines Ressourcen-Objektes zu einem String oder durch Aufruf der Methode `__toString()`.
@@ -226,7 +239,7 @@ $napi = $api->factory(\Nordkirche\Ndk\Service\NapiService::class);
 $result = $napi->resolveUrl($uri);
 ``` 
 
-Auch ganze Listen von URIs lassen direkt mit dem NDK auflösen und fehlende Objekte behandeln:
+Auch ganze Listen von URIs lassen sich mit dem NDK direkt auflösen und fehlende Objekte behandeln:
 
 ```php
 <?php

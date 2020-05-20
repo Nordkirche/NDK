@@ -4,6 +4,7 @@ namespace Nordkirche\Ndk\Service;
 
 use Nordkirche\Ndk\Configuration;
 use Nordkirche\Ndk\Domain\Model\AbstractModel;
+use Nordkirche\Ndk\Service\Exception\CouldNotResolveObjectFromIncludeException;
 
 class ResolutionService
 {
@@ -83,6 +84,10 @@ class ResolutionService
      */
     protected function resolveObject(array $data)
     {
+        if (!isset($data['type']) || !isset($data['id'])) {
+            return null;
+        }
+
         if ($this->has($data['type'], $data['id'])) {
             return $this->get($data['type'], $data['id']);
         }
@@ -122,8 +127,6 @@ class ResolutionService
      */
     public function get(string $type, string $id)
     {
-        $result = null;
-
         if (isset($this->objectMap[$type])) {
             $result = array_filter($this->objectMap[$type], function (AbstractModel $object) use ($id) {
                 return $object->getId() == $id;
@@ -134,10 +137,18 @@ class ResolutionService
             }
         }
 
-        $result = $this->resolveObjectFromIncludes($type, $id)
-            ?? $this->factoryService->make(ResolutionProxy::class, ['uri' => $type . '/' . $id]);
-
-        return $result;
+        try {
+            return $this->resolveObjectFromIncludes($type, $id);
+        } catch (CouldNotResolveObjectFromIncludeException $e) {
+            if ($this->configuration->isResolutionProxyDisabled()) {
+                return $this->factoryService->make(
+                    MissingResourceProxy::class,
+                    ['id' => $id, 'type' => $type]
+                );
+            } else {
+                return $this->factoryService->make(ResolutionProxy::class, ['uri' => $type . '/' . $id]);
+            }
+        }
     }
 
     /**
@@ -147,6 +158,7 @@ class ResolutionService
      * @param string $id
      *
      * @return AbstractModel
+     * @throws CouldNotResolveObjectFromIncludeException
      */
     protected function resolveObjectFromIncludes(string $type, string $id)
     {
@@ -155,7 +167,7 @@ class ResolutionService
             return $this->resolveObject($result);
         }
 
-        return null;
+        throw new CouldNotResolveObjectFromIncludeException($type, $id, 1583145366);
     }
 
     /**
@@ -359,7 +371,17 @@ class ResolutionService
     {
         $resultObject = new Result(new \SplObjectStorage(), 1, sizeof($relationData));
         foreach ($relationData as $data) {
-            $resultObject->getObjects()->attach($this->resolveRelation($data));
+            $object = $this->resolveRelation($data);
+
+            if ($object instanceof MissingResourceProxy) {
+                $logger = $this->factoryService->get(Configuration::class)->getLogger();
+                $logger->info('Skipped relationship because it was not found in includes', [
+                    'type' => $object->getType(),
+                    'id' => $object->getId()
+                ]);
+            } elseif ($object !== null) {
+                $resultObject->getObjects()->attach($object);
+            }
         }
         $resultObject->rewind();
 
