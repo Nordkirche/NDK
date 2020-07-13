@@ -140,6 +140,16 @@ der NAPI aus. Diese Objekte haben eine ID, einen Typ und Relationen zu anderen R
 Alle `AbstractModels` sind fast auschließlich Unterobjekte einer Resource und gliedern die teilweise komplexen Daten
 der Resourcen-Objekte.
 
+### Attribute
+
+In der Regel kann mit den jeweiligen `get*()`-Methoden auf die Eigenschaften einer Resource zugegriffen werden.
+
+Die dynamische Verarbeitung von Objekten, die mit `method_exists()` prüft, ob ein Attribute holbar ist, ist allerdings
+nicht möglich, da einige `get*()`-Methoden magisch sind. 
+Um trotzdem eine dynamische Prüfung und Verarbeitung von Attributen zu ermöglichen, kann mit `property_exists()` und
+dem direkten Zugriff auf die Property via `$object->property` gearbeitet werden. Dabei werden Features wie
+`ResourcePlaceholder` und `ResolutionProxy` aus den folgenden Abschnitten berücksichtigt.
+
 ### Includes
 
 Die NAPI selbst basiert auf der [JSON API 1.0 Spezifikation](http://jsonapi.org/) und arbeitet deshalb mit der Option,

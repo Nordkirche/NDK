@@ -2,10 +2,12 @@
 
 namespace Nordkirche\Ndk\Domain\Model;
 
+use Nordkirche\Ndk\Domain\Interfaces\ModelInterface;
 use Nordkirche\Ndk\Service\Interfaces\ResourceObjectInterface;
 use Nordkirche\Ndk\Service\MissingResourceProxy;
 use Nordkirche\Ndk\Service\NapiService;
 use Nordkirche\Ndk\Service\ResolutionProxy;
+use SplObjectStorage;
 
 abstract class AbstractResourceObject extends AbstractModel implements ResourceObjectInterface
 {
@@ -137,22 +139,45 @@ abstract class AbstractResourceObject extends AbstractModel implements ResourceO
      * @param $method
      * @param $args
      *
-     * @return mixed|\Nordkirche\Ndk\Domain\Interfaces\ModelInterface|\SplObjectStorage
+     * @return mixed|ModelInterface|SplObjectStorage
      */
     public function __call($method, $args)
     {
         if (substr($method, 0, 3) === 'get') {
             $attribute = lcfirst(substr($method, 3));
-            $value = $this->{$attribute};
 
-            if ($value instanceof ResolutionProxy) {
-                $this->{$attribute} = $value->resolve();
-            } elseif ($value instanceof MissingResourceProxy) {
-                $value->logAccess();
-                $this->{$attribute} = null;
-            }
-
-            return $this->{$attribute};
+            return $this->retrieveAttribute($attribute);
         }
+
+        return null;
+    }
+
+    /**
+     * @param string $attribute
+     *
+     * @return mixed|ModelInterface|SplObjectStorage
+     */
+    private function retrieveAttribute(string $attribute)
+    {
+        $value = $this->{$attribute};
+
+        if ($value instanceof ResolutionProxy) {
+            $this->{$attribute} = $value->resolve();
+        } elseif ($value instanceof MissingResourceProxy) {
+            $value->logAccess();
+            $this->{$attribute} = null;
+        }
+
+        return $this->{$attribute};
+    }
+
+    /**
+     * @param $attribute
+     *
+     * @return mixed|ModelInterface|SplObjectStorage
+     */
+    public function __get($attribute)
+    {
+        return $this->retrieveAttribute($attribute);
     }
 }

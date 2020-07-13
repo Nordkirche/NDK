@@ -1,6 +1,6 @@
 <?php
 
-namespace Nordkirche\Ndk\Service;
+namespace Nordkirche\Ndk\Helper;
 
 class MockSiblingModel extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
 {

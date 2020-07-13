@@ -6,6 +6,7 @@ use Nordkirche\Ndk\Api;
 use Nordkirche\Ndk\Configuration;
 use Nordkirche\Ndk\Helper\SetupApiTrait;
 use PHPUnit\Framework\TestCase;
+use Nordkirche\Ndk\Helper\MockResourceObject;
 
 class NapiServiceTest extends TestCase
 {
@@ -148,7 +149,7 @@ class NapiServiceTest extends TestCase
     {
         $this->setUpIntegration();
         $configuration = Api::$api->getConfiguration()->setTypeClassMap([
-            'sometype' => \Nordkirche\Ndk\Service\MockModel::class
+            'sometype' => \Nordkirche\Ndk\Helper\MockModel::class
         ]);
         $resolutionService = Api::$api->factory()->get(ResolutionService::class);
 

@@ -3,6 +3,7 @@
 namespace Nordkirche\Ndk\Service;
 
 use PHPUnit\Framework\TestCase;
+use Nordkirche\Ndk\Helper\MockModel;
 
 class ResultTest extends TestCase
 {

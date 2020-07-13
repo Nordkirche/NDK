@@ -1,6 +1,6 @@
 <?php
 
-namespace Nordkirche\Ndk\Service;
+namespace Nordkirche\Ndk\Helper;
 
 class MockResourceObject implements \Nordkirche\Ndk\Service\Interfaces\ResourceObjectInterface
 {

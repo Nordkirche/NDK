@@ -1,11 +1,15 @@
 <?php
 
-namespace Nordkirche\Ndk\Service;
+namespace Nordkirche\Ndk\Helper;
 
 use Nordkirche\Ndk\Domain\Model\AbstractResourceObject;
+use Nordkirche\Ndk\Service\MissingResourceProxy;
+use Nordkirche\Ndk\Service\ResolutionProxy;
+use Nordkirche\Ndk\Service\Result;
 
 /**
  * @method MockSiblingModel getObject()
+ * @property MockSiblingModel object
  */
 class MockModel extends AbstractResourceObject
 {
@@ -114,7 +118,7 @@ class MockModel extends AbstractResourceObject
 
     /**
      * @param Result $resultObject
-     * @subtype \Nordkirche\Ndk\Service\MockSiblingModel
+     * @subtype \Nordkirche\Ndk\Helper\MockSiblingModel
      */
     public function setResultObject(Result $resultObject)
     {
