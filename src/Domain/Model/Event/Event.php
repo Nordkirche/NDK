@@ -150,6 +150,11 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var string
      */
     protected $ticketSaleText;
+
+    /**
+     * @var string
+     */
+    protected $registrationLink;
             
     /**
      * @var string
@@ -608,7 +613,23 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     {
         $this->ticketSaleText = $ticketSaleText;
     }
-        
+
+    /**
+     * @return string
+     */
+    public function getRegistrationLink() : string
+    {
+        return $this->registrationLink;
+    }
+
+    /**
+     * @param string $registrationLink
+     */
+    public function setRegistrationLink(string $registrationLink)
+    {
+        $this->registrationLink = $registrationLink;
+    }
+
     /**
      * @return string
      */
