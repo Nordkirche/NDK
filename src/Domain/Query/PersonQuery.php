@@ -17,6 +17,7 @@ class PersonQuery extends PageQuery
 
     protected $filterProperties = [
         'ancestorInstitutions',
+        'ancestorInstitutionsOrInstitutions',
         'geocode',
         'institutions',
         'functions',
@@ -31,6 +32,11 @@ class PersonQuery extends PageQuery
      * @var integer[]
      */
     protected $ancestorInstitutions = [];
+
+    /**
+     * @var integer[]
+     */
+    protected $ancestorInstitutionsOrInstitutions = [];
 
     /**
      * @var Geocode
@@ -112,6 +118,26 @@ class PersonQuery extends PageQuery
         return $this;
     }
 
+    /**
+     * @return integer[]
+     */
+    public function getAncestorInstitutionsOrInstitutions(): array
+    {
+        return $this->ancestorInstitutionsOrInstitutions;
+    }
+
+    /**
+     * @param integer[] $ancestorInstitutionsOrInstitutions
+     *
+     * @return PersonQuery
+     */
+    public function setAncestorInstitutionsOrInstitutions(array $ancestorInstitutionsOrInstitutions)
+    {
+        $this->ancestorInstitutionsOrInstitutions = $ancestorInstitutionsOrInstitutions;
+
+        return $this;
+    }
+    
     /**
      * @return Geocode
      */
