@@ -16,9 +16,9 @@ class Category extends AbstractResourceObject
     protected $name;
             
     /**
-     * @var string
+     * @var bool
      */
-    protected $churchAssociation;
+    protected $isChurchAssociation;
             
     /**
      * @var Category
@@ -50,19 +50,19 @@ class Category extends AbstractResourceObject
     }
         
     /**
-     * @return string
+     * @return bool
      */
-    public function getChurchAssociation(): string
+    public function getIsChurchAssociation(): bool
     {
-        return $this->churchAssociation;
+        return $this->isChurchAssociation;
     }
     
     /**
-     * @param string $churchAssociation
+     * @param bool $churchAssociation
      */
-    public function setChurchAssociation(string $churchAssociation)
+    public function setIsChurchAssociation(bool $isChurchAssociation)
     {
-        $this->churchAssociation = $churchAssociation;
+        $this->isChurchAssociation = $isChurchAssociation;
     }
     
     /**
