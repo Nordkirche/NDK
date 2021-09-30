@@ -12,6 +12,7 @@ use Nordkirche\Ndk\Domain\Model\Address;
  * @method \Nordkirche\Ndk\Service\Result getParentInstitutions()
  * @method \Nordkirche\Ndk\Service\Result getMembers()
  * @method \Nordkirche\Ndk\Service\Result getMemberships()
+
  */
 class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
 {
@@ -114,6 +115,11 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var integer
      */
     protected $yearOfConstruction;
+
+    /**
+     * @var \Nordkirche\Ndk\Service\Result Contains a set of \Nordkirche\Ndk\Domain\Model\Institution\OpeningHours
+     */
+    protected $openingHours;
 
     /**
      * @var \Nordkirche\Ndk\Domain\Model\Address
@@ -449,6 +455,25 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     }
 
     /**
+     * @return \Nordkirche\Ndk\Service\Result Returns a set of \Nordkirche\Ndk\Domain\Model\Institution\OpeningHours
+     */
+    public function getOpeningHours(): \Nordkirche\Ndk\Service\Result
+    {
+        return $this->openingHours;
+    }
+
+    /**
+     * @param \Nordkirche\Ndk\Service\Result $openingHours
+     * @subtype \Nordkirche\Ndk\Domain\Model\Institution\OpeningHours
+
+     */
+    public function setOpeningHours(\Nordkirche\Ndk\Service\Result $openingHours)
+    {
+        $this->openingHours = $openingHours;
+    }
+
+
+    /**
      * @param \Nordkirche\Ndk\Domain\Model\Address $address
      */
     public function setAddress(\Nordkirche\Ndk\Domain\Model\Address $address)
@@ -508,4 +533,6 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     {
         $this->memberships = $memberships;
     }
+
+
 }
