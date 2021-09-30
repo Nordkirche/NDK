@@ -98,6 +98,7 @@ class Configuration
      */
     protected $typeClassMap = [
         'people' => Domain\Model\Person\Person::class,
+        'teams' => Domain\Model\Institution\Team::class,
         'functions' => Domain\Model\Person\PersonFunction::class,
         'function_types' => \Nordkirche\Ndk\Domain\Model\Person\FunctionType::class,
         'events' => Domain\Model\Event\Event::class,

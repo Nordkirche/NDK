@@ -9,6 +9,7 @@ use Nordkirche\Ndk\Domain\Model\Address;
  * @method InstitutionType getInstitutionType()
  * @method \Nordkirche\Ndk\Service\Result getMapChildren()
  * @method \Nordkirche\Ndk\Service\Result getCategories()
+ * @method \Nordkirche\Ndk\Service\Result getTeams()
  * @method \Nordkirche\Ndk\Service\Result getParentInstitutions()
  * @method \Nordkirche\Ndk\Service\Result getMembers()
  * @method \Nordkirche\Ndk\Service\Result getMemberships()
@@ -23,6 +24,7 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     const RELATION_PARENT_INSTITUTIONS = 'parent_institutions';
     const RELATION_MEMBERS = 'members';
     const RELATION_MEMBERSHIPS = 'memberships';
+    const RELATION_TEAMS = 'teams';
 
     const FACET_INSTITUTION_TYPE = 'institution_types';
 
@@ -45,6 +47,11 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var \Nordkirche\Ndk\Service\Result Contains a set of \Nordkirche\Ndk\Domain\Model\ContactItem
      */
     protected $contactItems;
+
+    /**
+     * @var \Nordkirche\Ndk\Service\Result Contains a set of \Nordkirche\Ndk\Domain\Model\Institution\Team
+     */
+    protected $teams;
 
     /**
      * @var string
@@ -243,6 +250,15 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     public function setContactItems(\Nordkirche\Ndk\Service\Result $contactItems)
     {
         $this->contactItems = $contactItems;
+    }
+
+    /**
+     * @param \Nordkirche\Ndk\Service\Result $teams
+     * @subtype \Nordkirche\Ndk\Domain\Model\Institution\Team
+     */
+    public function setTeams(\Nordkirche\Ndk\Service\Result $teams)
+    {
+        $this->teams = $teams;
     }
 
     /**
