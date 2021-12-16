@@ -16,7 +16,7 @@ class Team extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     /**
      * @var string
      */
-    protected $team = '';
+    protected $name = '';
 
     /**
      * @var bool
@@ -49,23 +49,23 @@ class Team extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      */
     public function getLabel(): string
     {
-        return $this->getTeam();
+        return $this->getName();
     }
 
     /**
      * @return string
      */
-    public function getTeam(): string
+    public function getName(): string
     {
-        return $this->team;
+        return $this->name;
     }
 
     /**
-     * @param string $team
+     * @param string $name
      */
-    public function setTeam(string $team): void
+    public function setName(string $name): void
     {
-        $this->team = $team;
+        $this->name = $name;
     }
 
     /**
