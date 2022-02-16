@@ -5,6 +5,11 @@ namespace Nordkirche\Ndk\Domain\Model\Institution;
 class OpeningHours extends \Nordkirche\Ndk\Domain\Model\AbstractModel
 {
     /**
+     * @var string
+     */
+    protected $name = '';
+
+    /**
      * @var int
      */
     protected $dayOfWeek = 0;
@@ -28,6 +33,22 @@ class OpeningHours extends \Nordkirche\Ndk\Domain\Model\AbstractModel
      * @var bool
      */
     protected $closed = false;
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
 
     /**
      * @return int
