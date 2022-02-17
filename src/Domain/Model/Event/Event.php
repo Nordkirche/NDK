@@ -12,12 +12,14 @@ use Nordkirche\Ndk\Domain\Model\Institution\Institution;
  * @method \Nordkirche\Ndk\Service\Result getCategories()
  * @method \Nordkirche\Ndk\Service\Result getOrganizers()
  * @method \Nordkirche\Ndk\Service\Result getParticipants()
+ * @method \Nordkirche\Ndk\Service\Result getTargetGroups()
  */
 class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
 {
     const RELATION_ADDRESS = 'address';
     const RELATION_CHIEF_ORGANIZER = 'chief_organizer';
     const RELATION_CATEGORY = 'categories';
+    const RELATION_TARGET_GROUPS = 'target_groups';
 
     const FACET_EVENT_TYPE = 'event_types';
 
@@ -195,6 +197,11 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var \Nordkirche\Ndk\Service\Result with items of type \Nordkirche\Ndk\Domain\Model\Person\Person
      */
     protected $participants;
+
+    /**
+     * @var \Nordkirche\Ndk\Service\Result with items of type \Nordkirche\Ndk\Domain\Model\Event\TargetGroup
+     */
+    protected $targetGroups;
 
     /**
      * @return string
@@ -705,4 +712,14 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     {
         $this->participants = $participants;
     }
+
+    /**
+     * @param \Nordkirche\Ndk\Service\Result $targetGroups
+     * @subtype \Nordkirche\Ndk\Domain\Model\Event\TargetGroup
+     */
+    public function setTargetGroups(\Nordkirche\Ndk\Service\Result $targetGroups)
+    {
+        $this->targetGroups = $targetGroups;
+    }
+
 }
