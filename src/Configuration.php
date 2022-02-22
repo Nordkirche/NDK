@@ -106,7 +106,8 @@ class Configuration
         'institutions' => Domain\Model\Institution\Institution::class,
         'institution_types' => Domain\Model\Institution\InstitutionType::class,
         'available_functions' => Domain\Model\Person\AvailableFunction::class,
-        'offertories' => Domain\Model\Offertory\Offertory::class
+        'offertories' => Domain\Model\Offertory\Offertory::class,
+        'target_groups' => Domain\Model\Event\TargetGroup::class
     ];
 
     /**
