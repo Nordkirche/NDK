@@ -164,6 +164,11 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     protected $memberships;
 
     /**
+     * @var boolean
+     */
+    protected $showOpeningHours;
+
+    /**
      * @return string
      */
     public function getLabel(): string
@@ -548,6 +553,22 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     public function setMemberships(\Nordkirche\Ndk\Service\Result $memberships)
     {
         $this->memberships = $memberships;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getShowOpeningHours(): bool
+    {
+        return $this->showOpeningHours;
+    }
+
+    /**
+     * @param bool $showOpeningHours
+     */
+    public function setShowOpeningHours(bool $showOpeningHours): void
+    {
+        $this->showOpeningHours = $showOpeningHours;
     }
 
 
