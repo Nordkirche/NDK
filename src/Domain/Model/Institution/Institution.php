@@ -9,9 +9,11 @@ use Nordkirche\Ndk\Domain\Model\Address;
  * @method InstitutionType getInstitutionType()
  * @method \Nordkirche\Ndk\Service\Result getMapChildren()
  * @method \Nordkirche\Ndk\Service\Result getCategories()
+ * @method \Nordkirche\Ndk\Service\Result getTeams()
  * @method \Nordkirche\Ndk\Service\Result getParentInstitutions()
  * @method \Nordkirche\Ndk\Service\Result getMembers()
  * @method \Nordkirche\Ndk\Service\Result getMemberships()
+
  */
 class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
 {
@@ -22,6 +24,7 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     const RELATION_PARENT_INSTITUTIONS = 'parent_institutions';
     const RELATION_MEMBERS = 'members';
     const RELATION_MEMBERSHIPS = 'memberships';
+    const RELATION_TEAMS = 'teams';
 
     const FACET_INSTITUTION_TYPE = 'institution_types';
 
@@ -44,6 +47,11 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var \Nordkirche\Ndk\Service\Result Contains a set of \Nordkirche\Ndk\Domain\Model\ContactItem
      */
     protected $contactItems;
+
+    /**
+     * @var \Nordkirche\Ndk\Service\Result Contains a set of \Nordkirche\Ndk\Domain\Model\Institution\Team
+     */
+    protected $teams;
 
     /**
      * @var string
@@ -116,6 +124,11 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     protected $yearOfConstruction;
 
     /**
+     * @var \Nordkirche\Ndk\Service\Result Contains a set of \Nordkirche\Ndk\Domain\Model\Institution\OpeningHours
+     */
+    protected $openingHours;
+
+    /**
      * @var \Nordkirche\Ndk\Domain\Model\Address
      */
     protected $address;
@@ -149,6 +162,11 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var \Nordkirche\Ndk\Service\Result contains a set of \Nordkirche\Ndk\Domain\Institution\Institution
      */
     protected $memberships;
+
+    /**
+     * @var boolean
+     */
+    protected $showOpeningHours;
 
     /**
      * @return string
@@ -237,6 +255,15 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     public function setContactItems(\Nordkirche\Ndk\Service\Result $contactItems)
     {
         $this->contactItems = $contactItems;
+    }
+
+    /**
+     * @param \Nordkirche\Ndk\Service\Result $teams
+     * @subtype \Nordkirche\Ndk\Domain\Model\Institution\Team
+     */
+    public function setTeams(\Nordkirche\Ndk\Service\Result $teams)
+    {
+        $this->teams = $teams;
     }
 
     /**
@@ -449,6 +476,25 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     }
 
     /**
+     * @return \Nordkirche\Ndk\Service\Result Returns a set of \Nordkirche\Ndk\Domain\Model\Institution\OpeningHours
+     */
+    public function getOpeningHours(): \Nordkirche\Ndk\Service\Result
+    {
+        return $this->openingHours;
+    }
+
+    /**
+     * @param \Nordkirche\Ndk\Service\Result $openingHours
+     * @subtype \Nordkirche\Ndk\Domain\Model\Institution\OpeningHours
+
+     */
+    public function setOpeningHours(\Nordkirche\Ndk\Service\Result $openingHours)
+    {
+        $this->openingHours = $openingHours;
+    }
+
+
+    /**
      * @param \Nordkirche\Ndk\Domain\Model\Address $address
      */
     public function setAddress(\Nordkirche\Ndk\Domain\Model\Address $address)
@@ -508,4 +554,22 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     {
         $this->memberships = $memberships;
     }
+
+    /**
+     * @return bool
+     */
+    public function getShowOpeningHours(): bool
+    {
+        return $this->showOpeningHours;
+    }
+
+    /**
+     * @param bool $showOpeningHours
+     */
+    public function setShowOpeningHours(bool $showOpeningHours): void
+    {
+        $this->showOpeningHours = $showOpeningHours;
+    }
+
+
 }
