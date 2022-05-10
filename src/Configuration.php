@@ -102,6 +102,7 @@ class Configuration
         'functions' => Domain\Model\Person\PersonFunction::class,
         'function_types' => \Nordkirche\Ndk\Domain\Model\Person\FunctionType::class,
         'events' => Domain\Model\Event\Event::class,
+        'event_locations' => Domain\Model\Event\EventLocation::class,
         'addresses' => Domain\Model\Address::class,
         'categories' => Domain\Model\Category::class,
         'institutions' => Domain\Model\Institution\Institution::class,

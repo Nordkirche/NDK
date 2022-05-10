@@ -209,6 +209,11 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     protected $targetGroups;
 
     /**
+     * @var \Nordkirche\Ndk\Service\Result with items of type \Nordkirche\Ndk\Domain\Model\Event\EventLocation
+     */
+    protected $eventLocations;
+
+    /**
      * @return string
      */
     public function getLabel(): string
@@ -741,6 +746,15 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     public function setTargetGroups(\Nordkirche\Ndk\Service\Result $targetGroups)
     {
         $this->targetGroups = $targetGroups;
+    }
+
+    /**
+     * @param \Nordkirche\Ndk\Service\Result $eventLocations
+     * @subtype \Nordkirche\Ndk\Domain\Model\Event\EventLocation
+     */
+    public function setEventLocations(\Nordkirche\Ndk\Service\Result $eventLocations)
+    {
+        $this->eventLocations = $eventLocations;
     }
 
 }
