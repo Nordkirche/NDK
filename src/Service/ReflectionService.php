@@ -52,7 +52,7 @@ class ReflectionService
         $typeString = null;
 
         if ($type !== null) {
-            $typeString = $type->__toString();
+            $typeString = $type->getName() ;
         }
 
         // We have to get the classname of the objects the object storage stores
