@@ -129,7 +129,4 @@ class OpeningHours extends \Nordkirche\Ndk\Domain\Model\AbstractModel
     {
         $this->closed = $closed;
     }
-
-
-
 }

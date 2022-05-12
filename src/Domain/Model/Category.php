@@ -72,5 +72,4 @@ class Category extends AbstractResourceObject
     {
         $this->parent = $parent;
     }
-
 }

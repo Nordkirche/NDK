@@ -756,5 +756,4 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     {
         $this->eventLocations = $eventLocations;
     }
-
 }

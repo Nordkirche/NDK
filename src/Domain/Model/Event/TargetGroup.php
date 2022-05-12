@@ -53,5 +53,4 @@ class TargetGroup extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     {
         return $this->getName();
     }
-
 }

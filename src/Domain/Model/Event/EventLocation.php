@@ -7,7 +7,8 @@ use Nordkirche\Ndk\Domain\Model\Address;
 /**
  * @method \Nordkirche\Ndk\Domain\Model\Address getAddress()
  */
-class EventLocation extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject {
+class EventLocation extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
+{
 
     /**
      * @var string
@@ -36,7 +37,6 @@ class EventLocation extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject 
         }
 
         return trim($label) ? $label : 'Kein Name';
-
     }
 
     /**
@@ -79,5 +79,4 @@ class EventLocation extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject 
     {
         $this->contactItems = $contactItems;
     }
-
 }

@@ -124,5 +124,4 @@ class Team extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     {
         $this->functions = $functions;
     }
-
 }

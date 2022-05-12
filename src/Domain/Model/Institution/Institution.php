@@ -570,6 +570,4 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     {
         $this->showOpeningHours = $showOpeningHours;
     }
-
-
 }
