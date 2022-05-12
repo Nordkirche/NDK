@@ -27,6 +27,7 @@ class EventQuery extends PageQuery
         'location',
         'organizers',
         'organizersWithParents',
+        'targetGroups',
         'timeFrom',
         'timeFromStart',
         'timeTo',
@@ -93,6 +94,11 @@ class EventQuery extends PageQuery
      * @var integer[]
      */
     protected $organizersWithParents = [];
+
+    /**
+     * @var integer[]
+     */
+    protected $targetGroups = [];
 
     /**
      * @var \DateTime
@@ -351,6 +357,24 @@ class EventQuery extends PageQuery
     public function setOrganizers(array $organizers): EventQuery
     {
         $this->organizers = $organizers;
+
+        return $this;
+    }
+
+    /**
+     * @return integer[]
+     */
+    public function getTargetGroups(): array
+    {
+        return $this->targetGroups;
+    }
+
+    /**
+     * @param integer[] $targetGroups
+     */
+    public function setTargetGroups($targetGroups): EventQuery
+    {
+        $this->targetGroups = $targetGroups;
 
         return $this;
     }
