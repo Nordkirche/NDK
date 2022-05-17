@@ -15,7 +15,7 @@ class SuggestQueryTest extends TestCase
         $query = new SuggestQuery();
         $query->setQuery('String');
 
-        self::assertContains(
+        self::assertStringContainsString(
             '/String',
             (string)$query
         );
@@ -31,7 +31,7 @@ class SuggestQueryTest extends TestCase
         $query = new SuggestQuery();
         $query->setQuery('Vorname Name');
 
-        self::assertContains(
+        self::assertStringContainsString(
             '/Vorname%20Name',
             (string)$query
         );

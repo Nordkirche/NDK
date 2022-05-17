@@ -13,7 +13,7 @@ class ResultTest extends TestCase
      */
     private $fixture;
 
-    public function setUp()
+    public function setUp(): void
     {
         $objectStorage = new \SplObjectStorage();
         $objectStorage->attach(new MockModel());

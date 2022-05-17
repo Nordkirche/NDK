@@ -15,7 +15,7 @@ abstract class AbstractE2eTestCase extends TestCase
      */
     protected $api;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->api = $this->createApiInstance();
     }

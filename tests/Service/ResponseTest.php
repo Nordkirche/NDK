@@ -49,7 +49,7 @@ class ResponseTest extends TestCase
         ]
     ];
 
-    public function setUp()
+    public function setUp():void
     {
         /** @var \Psr\Http\Message\ResponseInterface $responseMock */
         $this->responseMock = $this->createMock(\Psr\Http\Message\ResponseInterface::class);

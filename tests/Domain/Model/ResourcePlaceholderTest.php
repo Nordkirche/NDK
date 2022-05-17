@@ -12,7 +12,7 @@ class ResourcePlaceholderTest extends AbstractIntegrationTestCase
      */
     protected $testSubject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

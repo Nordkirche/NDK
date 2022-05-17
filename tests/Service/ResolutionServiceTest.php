@@ -274,7 +274,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
         ]
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->api->getConfiguration()->setTypeClassMap([

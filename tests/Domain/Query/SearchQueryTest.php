@@ -15,7 +15,7 @@ class SearchQueryTest extends TestCase
         $query = new SearchQuery();
         $query->setQuery('String');
 
-        self::assertContains(
+        self::assertStringContainsString(
             '/string',
             (string)$query
         );
@@ -31,7 +31,7 @@ class SearchQueryTest extends TestCase
         $query = new SearchQuery();
         $query->setQuery('Vorname Name');
 
-        self::assertContains(
+        self::assertStringContainsString(
             '/vorname%20name',
             (string)$query
         );

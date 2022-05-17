@@ -30,4 +30,5 @@ class MockResourceObject implements \Nordkirche\Ndk\Service\Interfaces\ResourceO
     public function __toString()
     {
     }
+
 }

@@ -12,7 +12,7 @@ class ContactItemTest extends AbstractIntegrationTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->fixture = $this->api->factory()->make(ContactItem::class);

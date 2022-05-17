@@ -12,7 +12,7 @@ class AddressTest extends TestCase
      */
     protected $testSubject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         /** @var $decoratorMock \Nordkirche\Ndk\Service\ModelDecoratorService */

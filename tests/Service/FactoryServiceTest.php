@@ -11,7 +11,7 @@ class FactoryServiceTest extends \Nordkirche\Ndk\Helper\AbstractIntegrationTestC
      */
     private $testSubject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->testSubject = $this->api->factory();

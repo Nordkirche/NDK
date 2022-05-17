@@ -13,7 +13,7 @@ class PersonRepositoryTest extends \Nordkirche\Ndk\Helper\AbstractE2eTestCase
      */
     protected $testSubject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->testSubject = $this->api->factory(PersonRepository::class);

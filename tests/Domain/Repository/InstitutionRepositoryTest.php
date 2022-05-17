@@ -14,7 +14,7 @@ class InstitutionRepositoryTest extends \Nordkirche\Ndk\Helper\AbstractE2eTestCa
      */
     private $testSubject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->testSubject = $this->api->factory(InstitutionRepository::class);

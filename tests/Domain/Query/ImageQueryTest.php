@@ -82,6 +82,8 @@ class ImageQueryTest extends TestCase
      */
     public function testConstructorWithUrlFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $testUrl = '/some/random/url/with/integer/123';
         new ImageQuery($testUrl);
     }

@@ -19,7 +19,7 @@ class RepositoryTest extends TestCase
      */
     protected $fixture;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

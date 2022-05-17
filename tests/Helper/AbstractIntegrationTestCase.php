@@ -22,7 +22,7 @@ abstract class AbstractIntegrationTestCase extends TestCase
      */
     protected $api;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->api = $this->createApiInstance(new Configuration(1, 'foobar'));
     }

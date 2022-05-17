@@ -14,7 +14,7 @@ class ModelDecoratorServiceTest extends \Nordkirche\Ndk\Helper\AbstractIntegrati
      */
     protected $testSubject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->testSubject = $this->api->factory()->get(ModelDecoratorService::class);

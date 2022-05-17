@@ -13,7 +13,7 @@ class FactoryTest extends AbstractIntegrationTestCase
      */
     private $testSubject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->testSubject = $this->api;

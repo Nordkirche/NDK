@@ -16,7 +16,7 @@ class PerformanceTest extends TestCase
         $api = $this->createApiInstance();
         $api->getConfiguration()->setRequestTimeout(0.01);
         $personRepository = $api->factory(\Nordkirche\Ndk\Domain\Repository\PersonRepository::class);
-        $personRepository->getById(8066);
+        $personRepository->getById(7652);
     }
 
     /**
@@ -29,8 +29,7 @@ class PerformanceTest extends TestCase
         $personRepository = $api->factory(\Nordkirche\Ndk\Domain\Repository\PersonRepository::class);
 
         self::assertTime($api->getConfiguration()->getRequestTimeout(), function() use ($personRepository) {
-            $personRepository->getById(8066, [
-                \Nordkirche\Ndk\Domain\Model\Person\Person::RELATION_ADDRESS,
+            $personRepository->getById(7652, [
                 \Nordkirche\Ndk\Domain\Model\Person\Person::RELATION_DATA_ADMINISTRATOR,
                 \Nordkirche\Ndk\Domain\Model\Person\Person::RELATION_FUNCTIONS
             ]);
