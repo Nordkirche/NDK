@@ -15,16 +15,10 @@ class ImageEndpoint extends AbstractEndpoint
      */
     public function query($query = null)
     {
-        $client = $this->napiService->getClient();
+        $uri = $this->napiService->getClient()->getConfig('base_uri');
 
-        $response = $client->get($this->resource.(string)$query, [
-            'allow_redirects' => false
-        ]);
+        $baseUri = $uri->getScheme() === '' && $uri->getHost() !== '' ? $uri->withScheme('http') : $uri;
 
-        if ($response->getStatusCode() === 302) {
-            return $response->getHeader('Location')[0];
-        }
-
-        return null;
+        return (string) $baseUri . $this->resource. (string) $query;
     }
 }
