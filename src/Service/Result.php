@@ -72,27 +72,27 @@ class Result implements \Countable, \Iterator
         return $this->facets;
     }
 
-    public function current()
+    public function current(): mixed
     {
         return $this->objects->current();
     }
 
-    public function next()
+    public function next(): void
     {
         $this->objects->next();
     }
 
-    public function key()
+    public function key(): mixed
     {
         return $this->objects->key();
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return $this->objects->valid();
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->objects->rewind();
     }
