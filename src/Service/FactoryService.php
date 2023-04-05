@@ -2,7 +2,6 @@
 
 namespace Nordkirche\Ndk\Service;
 
-use DI\Scope;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use Kevinrob\GuzzleCache\CacheMiddleware;
@@ -24,8 +23,7 @@ class FactoryService
     {
         // For Development only
         $builder = new \DI\ContainerBuilder();
-        $builder->setDefinitionCache($configuration->getDependencyInjectionCacheProvider());
-        $builder->useAnnotations(false);
+        $builder->useAttributes(false);
 
         $builder->addDefinitions(
             [
@@ -83,13 +81,13 @@ class FactoryService
                     $client = new Client($clientConfiguration);
 
                     return new NapiService($client, $this->container->get(ResolutionService::class), $configuration);
-                })->scope(Scope::SINGLETON),
+                }),
 
                 // Decorator for Models
-                ModelDecoratorService::class => \DI\object(ModelDecoratorService::class)->scope(Scope::SINGLETON),
+                ModelDecoratorService::class => \DI\autowire(ModelDecoratorService::class),
 
                 // Cache Service giving easy access to different caches
-                CacheService::class => \DI\object(CacheService::class)->scope(Scope::SINGLETON),
+                CacheService::class => \DI\autowire(CacheService::class),
 
                 // 3rd-Party
                 DocBlockFactory::class => function () {

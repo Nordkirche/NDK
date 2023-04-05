@@ -3,6 +3,8 @@
 namespace Nordkirche\Ndk;
 
 use Doctrine\Common\Cache\CacheProvider;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class Configuration
 {
@@ -141,7 +143,9 @@ class Configuration
             return $placeholder->getType() . ':' . $placeholder->getId();
         };
 
-        $defaultCacheProvider = new \Doctrine\Common\Cache\ArrayCache();
+        $cachePool = new ArrayAdapter();
+
+        $defaultCacheProvider = DoctrineProvider::wrap($cachePool);
         $this->setReflectionCacheProvider(clone $defaultCacheProvider);
         $this->setDependencyInjectionCacheProvider(clone $defaultCacheProvider);
         $this->setHttpCacheProvider(clone $defaultCacheProvider);
