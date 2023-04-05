@@ -97,7 +97,7 @@ class Result implements \Countable, \Iterator
         $this->objects->rewind();
     }
 
-    public function count()
+    public function count(): int
     {
         return $this->objects->count();
     }
