@@ -65,7 +65,7 @@ class Offertory extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     protected $url;
 
     /**
-     * @var int
+     * @var float
      */
     protected $priorProfit;
 
@@ -309,17 +309,17 @@ class Offertory extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getPriorProfit(): int
+    public function getPriorProfit(): float
     {
         return $this->priorProfit;
     }
 
     /**
-     * @param int $priorProfit
+     * @param float $priorProfit
      */
-    public function setPriorProfit(int $priorProfit)
+    public function setPriorProfit(float $priorProfit)
     {
         $this->priorProfit = $priorProfit;
     }
