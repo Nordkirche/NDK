@@ -172,6 +172,11 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var array
      */
     protected $vocalSoloists;
+
+    /**
+     * @var bool
+     */
+    protected $collectionRequested;
             
     /**
      * @var Address
@@ -688,6 +693,22 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     public function setVocalSoloists(array $vocalSoloists)
     {
         $this->vocalSoloists = $vocalSoloists;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getCollectionRequested(): bool
+    {
+        return $this->collectionRequested;
+    }
+
+    /**
+     * @param boolean $collectionRequested
+     */
+    public function setCollectionRequested(bool $collectionRequested)
+    {
+        $this->collectionRequested = $collectionRequested;
     }
 
     /**
