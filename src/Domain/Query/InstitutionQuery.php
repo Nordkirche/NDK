@@ -11,7 +11,7 @@ class InstitutionQuery extends PageQuery
     use LastModifiedFilters;
 
     const SORT_BY_NAME = 'name';
-    
+
     protected $sort = self::SORT_BY_NAME;
 
     protected $filterProperties = [
@@ -22,6 +22,7 @@ class InstitutionQuery extends PageQuery
         'parentInstitutions',
         'parentInstitutionsOrSelf',
         'institutionType',
+        'hasInstitutionNumber',
         'cities' => 'cities',
         'plz' => 'zipCodes',
         'id' => 'institutions',
@@ -69,6 +70,11 @@ class InstitutionQuery extends PageQuery
     protected $institutionType = [];
 
     /**
+     * @var bool
+     */
+    protected $hasInstitutionNumber = null;
+
+    /**
      * @var string
      */
     protected $query = '';
@@ -82,7 +88,7 @@ class InstitutionQuery extends PageQuery
      * @var string[]
      */
     protected $cities = [];
-    
+
     /**
      * @return integer[]
      */
@@ -182,7 +188,7 @@ class InstitutionQuery extends PageQuery
 
         return $this;
     }
-    
+
     /**
      * @return integer[]
      */
@@ -241,6 +247,22 @@ class InstitutionQuery extends PageQuery
         $this->institutionType = $institutionType;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasInstitutionNumber(): bool
+    {
+        return $this->hasInstitutionNumber;
+    }
+
+    /**
+     * @param bool $hasInstitutionNumber
+     */
+    public function setHasInstitutionNumber(bool $hasInstitutionNumber): void
+    {
+        $this->hasInstitutionNumber = $hasInstitutionNumber;
     }
 
     /**

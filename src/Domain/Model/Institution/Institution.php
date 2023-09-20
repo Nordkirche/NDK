@@ -13,6 +13,7 @@ use Nordkirche\Ndk\Domain\Model\Address;
  * @method \Nordkirche\Ndk\Service\Result getParentInstitutions()
  * @method \Nordkirche\Ndk\Service\Result getMembers()
  * @method \Nordkirche\Ndk\Service\Result getMemberships()
+ * @method \Nordkirche\Ndk\Service\Result getChildInstitutions()
 
  */
 class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
@@ -25,8 +26,14 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     const RELATION_MEMBERS = 'members';
     const RELATION_MEMBERSHIPS = 'memberships';
     const RELATION_TEAMS = 'teams';
+    const RELATION_CHILD_INSTITUTIONS = 'child_institutions';
 
     const FACET_INSTITUTION_TYPE = 'institution_types';
+
+    /**
+     * @var string
+     */
+    protected $institutionNumber;
 
     /**
      * @var string
@@ -164,6 +171,11 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     protected $memberships;
 
     /**
+     * @var \Nordkirche\Ndk\Service\Result contains a set of \Nordkirche\Ndk\Domain\Institution\Institution
+     */
+    protected $childInstitutions;
+
+    /**
      * @var boolean
      */
     protected $showOpeningHours;
@@ -192,6 +204,22 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
         $this->name = $name;
     }
 
+    /**
+     * @return string
+     */
+    public function getInstitutionNumber(): string
+    {
+        return $this->institutionNumber;
+    }
+
+    /**
+     * @param string $institutionNumber
+     */
+    public function setInstitutionNumber(string $institutionNumber): void
+    {
+        $this->institutionNumber = $institutionNumber;
+    }
+    
     /**
      * @return string
      */
@@ -553,6 +581,15 @@ class Institution extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     public function setMemberships(\Nordkirche\Ndk\Service\Result $memberships)
     {
         $this->memberships = $memberships;
+    }
+
+    /**
+     * @param \Nordkirche\Ndk\Service\Result $memberships
+     * @subtype \Nordkirche\Ndk\Domain\Institution\Institution
+     */
+    public function setChildInstitutions(\Nordkirche\Ndk\Service\Result $childInstitutions)
+    {
+        $this->childInstitutions = $childInstitutions;
     }
 
     /**
