@@ -177,7 +177,17 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var bool
      */
     protected $collectionRequested;
-            
+
+    /**
+     * @var string
+     */
+    protected $digitalType = '';
+
+    /**
+     * @var string
+     */
+    protected $digitalUrl = '';
+
     /**
      * @var Address
      */
@@ -709,6 +719,38 @@ class Event extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     public function setCollectionRequested(bool $collectionRequested)
     {
         $this->collectionRequested = $collectionRequested;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDigitalType(): string
+    {
+        return $this->digitalType;
+    }
+
+    /**
+     * @param string $digitalType
+     */
+    public function setDigitalType(string $digitalType)
+    {
+        $this->digitalType = $digitalType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDigitalUrl(): string
+    {
+        return $this->digitalUrl;
+    }
+
+    /**
+     * @param string $digitalUrl
+     */
+    public function setDigitalUrl(string $digitalUrl)
+    {
+        $this->digitalUrl = $digitalUrl;
     }
 
     /**
