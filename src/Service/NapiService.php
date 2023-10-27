@@ -101,7 +101,7 @@ class NapiService
     {
         $urlParts = parse_url($url);
 
-        if ($urlParts['scheme'] !== 'napi' || $urlParts['host'] !== 'resource') {
+        if (empty($urlParts['scheme']) || $urlParts['scheme'] !== 'napi' || empty($urlParts['host']) || $urlParts['host'] !== 'resource') {
             throw new \InvalidArgumentException('The URL provided does not begin with napi://resource', 1495185925);
         }
 
