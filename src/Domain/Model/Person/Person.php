@@ -5,6 +5,7 @@ namespace Nordkirche\Ndk\Domain\Model\Person;
 /**
  * @method \Nordkirche\Ndk\Service\Result getDataAdministrators()
  * @method \Nordkirche\Ndk\Service\Result getFunctions()
+ * @method \Nordkirche\Ndk\Domain\Model\Address getAddress()
  */
 class Person extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
 {
@@ -59,6 +60,11 @@ class Person extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
      * @var \Nordkirche\Ndk\Service\Result with items of \Nordkirche\Ndk\Domain\Model\Person\Person
      */
     protected $dataAdministrators;
+
+    /**
+     * @var \Nordkirche\Ndk\Domain\Model\Address
+     */
+    protected $address;
 
     /**
      * @return string
@@ -197,5 +203,13 @@ class Person extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     public function setDataAdministrators(\Nordkirche\Ndk\Service\Result $dataAdministrators)
     {
         $this->dataAdministrators = $dataAdministrators;
+    }
+
+    /**
+     * @param \Nordkirche\Ndk\Domain\Model\Address $address
+     */
+    public function setAddress(\Nordkirche\Ndk\Domain\Model\Address $address)
+    {
+        $this->address = $address;
     }
 }
