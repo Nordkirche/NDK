@@ -54,7 +54,8 @@ class Image extends \Nordkirche\Ndk\Domain\Model\File\File
         $query = new \Nordkirche\Ndk\Domain\Query\ImageQuery($this->url);
         $width && $query->setWidth($width);
         $height && $query->setHeight($height);
+        $image = $this->imageEndpoint->query($query);
 
-        return $this->imageEndpoint->query($query);
+        return !empty($image) ? $image : '';
     }
 }
