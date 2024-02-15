@@ -106,7 +106,7 @@ class Address extends \Nordkirche\Ndk\Domain\Model\AbstractResourceObject
     /**
      * @return string
      */
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->country;
     }
