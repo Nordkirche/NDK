@@ -19,7 +19,7 @@ class EventQuery extends PageQuery
         'categories' => 'categoriesOr',
         '+categories' => 'categoriesAnd',
         'chiefOrganizer',
-        'eventType',
+        'event_type'=> 'eventTypes',
         'cities',
         'plz' => 'zipCodes',
         'churchAssociations',
@@ -56,9 +56,9 @@ class EventQuery extends PageQuery
     protected $chiefOrganizer = '';
 
     /**
-     * @var string
+     * @var array
      */
-    protected $eventType = '';
+    protected $eventTypes = [];
 
     /**
      * @var integer[]
@@ -226,7 +226,7 @@ class EventQuery extends PageQuery
      */
     public function getEventType(): string
     {
-        return $this->eventType;
+        return !empty($this->eventType[0]) ? $this->eventType[0] : '';
     }
 
     /**
@@ -236,7 +236,27 @@ class EventQuery extends PageQuery
      */
     public function setEventType(string $eventType): EventQuery
     {
-        $this->eventType = $eventType;
+        $this->setEventTypes([$eventType]);
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getEventTypes(): array
+    {
+        return $this->eventTypes;
+    }
+
+    /**
+     * @param array $eventTypes
+     *
+     * @return EventQuery
+     */
+    public function setEventTypes(array $eventTypes): EventQuery
+    {
+        $this->eventTypes = $eventTypes;
 
         return $this;
     }
