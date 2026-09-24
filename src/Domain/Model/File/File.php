@@ -132,7 +132,7 @@ class File extends \Nordkirche\Ndk\Domain\Model\AbstractModel
     /**
      * @param string $title
      */
-    public function setTitle(string $title = null)
+    public function setTitle(?string $title = null)
     {
         $this->title = $title;
     }

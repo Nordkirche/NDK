@@ -5,7 +5,7 @@ namespace Nordkirche\Ndk\Service;
 class CacheService
 {
     /**
-     * @var \Doctrine\Common\Cache\CacheProvider
+     * @var \Psr\Cache\CacheItemPoolInterface
      */
     protected $reflectionCache;
 
@@ -15,9 +15,9 @@ class CacheService
     }
 
     /**
-     * @return \Doctrine\Common\Cache\CacheProvider
+     * @return \Psr\Cache\CacheItemPoolInterface
      */
-    public function getReflectionCache(): \Doctrine\Common\Cache\CacheProvider
+    public function getReflectionCache(): \Psr\Cache\CacheItemPoolInterface
     {
         return $this->reflectionCache;
     }

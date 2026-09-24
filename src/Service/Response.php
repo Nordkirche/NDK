@@ -140,7 +140,7 @@ class Response
      *
      * @return array
      */
-    public function getIncluded(string $type = null, string $id = null): array
+    public function getIncluded(?string $type = null, ?string $id = null): array
     {
         if ($type && $id) {
             $result = array_filter($this->included, function ($row) use ($type, $id) {

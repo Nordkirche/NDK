@@ -18,12 +18,12 @@ class ArrayLogHandler extends AbstractProcessingHandler
         parent::__construct($level, $bubble);
     }
 
-    public function close()
+    public function getLog(): array
     {
         return $this->log;
     }
 
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         $this->log[] = $record;
     }

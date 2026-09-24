@@ -5,7 +5,7 @@ namespace Nordkirche\Ndk\Service;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use Kevinrob\GuzzleCache\CacheMiddleware;
-use Kevinrob\GuzzleCache\Storage\DoctrineCacheStorage;
+use Kevinrob\GuzzleCache\Storage\Psr6CacheStorage;
 use Kevinrob\GuzzleCache\Strategy\PrivateCacheStrategy;
 use Nordkirche\Ndk\Configuration;
 use phpDocumentor\Reflection\DocBlockFactory;
@@ -44,7 +44,7 @@ class FactoryService
                         'headers' => [
                             'Content-Type' => 'application/vnd.api+json',
                             'Accept' => 'application/vnd.api+json',
-                            'uid' => $configuration->getNapiUid(),
+                            'uid' => (string) $configuration->getNapiUid(),
                             'access-token' => $configuration->getNapiAccessToken()
                         ],
                         'base_uri' =>
@@ -62,7 +62,7 @@ class FactoryService
                     $stack = HandlerStack::create();
                     $stack->push(new CacheMiddleware(
                         new PrivateCacheStrategy(
-                            new DoctrineCacheStorage(
+                            new Psr6CacheStorage(
                                 $configuration->getHttpCacheProvider()
                             )
                         )

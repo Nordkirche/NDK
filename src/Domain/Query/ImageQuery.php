@@ -20,7 +20,7 @@ class ImageQuery implements \Nordkirche\Ndk\Service\Interfaces\QueryInterface
      */
     protected $height = '';
 
-    public function __construct(string $url = null)
+    public function __construct(?string $url = null)
     {
         if ($url === null) {
             return ;

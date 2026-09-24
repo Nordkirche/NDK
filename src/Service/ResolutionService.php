@@ -295,7 +295,7 @@ class ResolutionService
                 );
                 foreach ($this->currentResponse->getRawData() as $data) {
                     if ($object = $this->resolveObject($data)) {
-                        $primaryData->getObjects()->attach($object);
+                        $primaryData->getObjects()->offsetSet($object);
                     }
                 }
                 $primaryData->rewind();
@@ -380,7 +380,7 @@ class ResolutionService
                     'id' => $object->getId()
                 ]);
             } elseif ($object !== null) {
-                $resultObject->getObjects()->attach($object);
+                $resultObject->getObjects()->offsetSet($object);
             }
         }
         $resultObject->rewind();

@@ -2,8 +2,7 @@
 
 namespace Nordkirche\Ndk;
 
-use Doctrine\Common\Cache\CacheProvider;
-use Doctrine\Common\Cache\Psr6\DoctrineProvider;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class Configuration
@@ -65,17 +64,12 @@ class Configuration
     protected $placeholderLabelClosure;
 
     /**
-     * @var CacheProvider
+     * @var CacheItemPoolInterface
      */
     protected $reflectionCacheProvider;
 
     /**
-     * @var CacheProvider
-     */
-    protected $dependencyInjectionCacheProvider;
-
-    /**
-     * @var CacheProvider
+     * @var CacheItemPoolInterface
      */
     protected $httpCacheProvider;
 
@@ -123,11 +117,11 @@ class Configuration
     public function __construct(
         int $napiUid,
         string $napiAccessToken,
-        string $napiHost = null,
-        int $napiPort = null,
-        string $napiPath = null,
-        string $napiProtocol = null,
-        int $napiVersion = null,
+        ?string $napiHost = null,
+        ?int $napiPort = null,
+        ?string $napiPath = null,
+        ?string $napiProtocol = null,
+        ?int $napiVersion = null,
         array $httpAuth = []
     ) {
         $this->setNapiUid($napiUid);
@@ -143,12 +137,8 @@ class Configuration
             return $placeholder->getType() . ':' . $placeholder->getId();
         };
 
-        $cachePool = new ArrayAdapter();
-
-        $defaultCacheProvider = DoctrineProvider::wrap($cachePool);
-        $this->setReflectionCacheProvider(clone $defaultCacheProvider);
-        $this->setDependencyInjectionCacheProvider(clone $defaultCacheProvider);
-        $this->setHttpCacheProvider(clone $defaultCacheProvider);
+        $this->setReflectionCacheProvider(new ArrayAdapter());
+        $this->setHttpCacheProvider(new ArrayAdapter());
 
         $this->setLogger((new \Monolog\Logger('Requests'))->pushHandler(new \Monolog\Handler\NullHandler()));
         $this->setLogMessageFormatter(new \GuzzleHttp\MessageFormatter('{uri} - {req_body}'));
@@ -415,64 +405,45 @@ class Configuration
     }
 
     /**
-     * @return CacheProvider
+     * @return CacheItemPoolInterface
      */
-    public function getReflectionCacheProvider(): CacheProvider
+    public function getReflectionCacheProvider(): CacheItemPoolInterface
     {
         return $this->reflectionCacheProvider;
     }
 
     /**
-     * @param CacheProvider $reflectionCacheProvider
+     * Use a dedicated pool (or a namespaced one) - the NDK does not namespace the keys itself.
+     *
+     * @param CacheItemPoolInterface $reflectionCacheProvider
      *
      * @return Configuration
      */
-    public function setReflectionCacheProvider(CacheProvider $reflectionCacheProvider): Configuration
+    public function setReflectionCacheProvider(CacheItemPoolInterface $reflectionCacheProvider): Configuration
     {
         $this->reflectionCacheProvider = $reflectionCacheProvider;
-        $this->reflectionCacheProvider->setNamespace('ndk_reflection_cache');
 
         return $this;
     }
 
     /**
-     * @return CacheProvider
+     * @return CacheItemPoolInterface
      */
-    public function getDependencyInjectionCacheProvider(): CacheProvider
-    {
-        return $this->dependencyInjectionCacheProvider;
-    }
-
-    /**
-     * @param CacheProvider $dependencyInjectionCacheProvider
-     *
-     * @return Configuration
-     */
-    public function setDependencyInjectionCacheProvider(CacheProvider $dependencyInjectionCacheProvider): Configuration
-    {
-        $this->dependencyInjectionCacheProvider = $dependencyInjectionCacheProvider;
-        $this->dependencyInjectionCacheProvider->setNamespace('ndk_di_cache');
-
-        return $this;
-    }
-
-    /**
-     * @return CacheProvider
-     */
-    public function getHttpCacheProvider(): CacheProvider
+    public function getHttpCacheProvider(): CacheItemPoolInterface
     {
         return $this->httpCacheProvider;
     }
 
     /**
-     * @param CacheProvider $httpCacheProvider
+     * Use a dedicated pool (or a namespaced one) - the NDK does not namespace the keys itself.
      *
-     * @return $this
+     * @param CacheItemPoolInterface $httpCacheProvider
+     *
+     * @return Configuration
      */
-    public function setHttpCacheProvider(CacheProvider $httpCacheProvider)
+    public function setHttpCacheProvider(CacheItemPoolInterface $httpCacheProvider): Configuration
     {
         $this->httpCacheProvider = $httpCacheProvider;
-        $this->httpCacheProvider->setNamespace('ndk_http_cache');
 
         return $this;
     }

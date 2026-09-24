@@ -16,9 +16,9 @@ class ResultTest extends TestCase
     public function setUp(): void
     {
         $objectStorage = new \SplObjectStorage();
-        $objectStorage->attach(new MockModel());
-        $objectStorage->attach(new MockModel());
-        $objectStorage->attach(new MockModel());
+        $objectStorage->offsetSet(new MockModel());
+        $objectStorage->offsetSet(new MockModel());
+        $objectStorage->offsetSet(new MockModel());
 
         $this->fixture = new \Nordkirche\Ndk\Service\Result($objectStorage, 1, 3);
     }

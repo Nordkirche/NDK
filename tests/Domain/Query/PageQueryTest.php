@@ -16,7 +16,7 @@ class PageQueryTest extends TestCase
     public function subjectProvider()
     {
         return [
-            [new PageQuery()]
+            [new MockPageQuery()]
         ];
     }
 
@@ -25,7 +25,7 @@ class PageQueryTest extends TestCase
      */
     public function testPropertyCamelCaseToSnakeCase()
     {
-        $testSubject = new PageQuery();
+        $testSubject = new MockPageQuery();
         $testSubject->setFilterProperties(['testProperty']);
         $testSubject->testProperty = 'foobar';
         self::assertArrayHasKey('filter', $testSubject->returnUrlParameters());
@@ -37,7 +37,7 @@ class PageQueryTest extends TestCase
      */
     public function testReturnUrlParametersNotSet()
     {
-        $testSubject = new PageQuery();
+        $testSubject = new MockPageQuery();
         $testSubject->testProperty = 'This is söme Extreme <br /> value for ? \' Filter';
 
         self::assertArrayNotHasKey('filter', $testSubject->returnUrlParameters());
@@ -88,7 +88,7 @@ class PageQueryTest extends TestCase
      */
     public function testSortAscending()
     {
-        $testSubject = new PageQuery();
+        $testSubject = new MockPageQuery();
         $testSubject->setSort('some_field', PageQuery::SORT_ASC);
 
         self::assertEquals('?page%5Bnumber%5D=1&page%5Bsize%5D=10&sort=some_field', $testSubject->__toString());
@@ -99,7 +99,7 @@ class PageQueryTest extends TestCase
      */
     public function testSortDecending()
     {
-        $testSubject = new PageQuery();
+        $testSubject = new MockPageQuery();
         $testSubject->setSort('some_field', PageQuery::SORT_DESC);
 
         self::assertEquals('?page%5Bnumber%5D=1&page%5Bsize%5D=10&sort=-some_field', $testSubject->__toString());

@@ -2,10 +2,10 @@
 
 namespace Nordkirche\Ndk\Service;
 
-use Doctrine\Common\Cache\CacheProvider;
 use Nordkirche\Ndk\Domain\Interfaces\ModelInterface;
 use Nordkirche\Ndk\Domain\Model\AbstractModel;
 use phpDocumentor\Reflection\DocBlockFactory;
+use Psr\Cache\CacheItemPoolInterface;
 
 class ReflectionService
 {
@@ -16,7 +16,7 @@ class ReflectionService
     protected $docBlockParser;
 
     /**
-     * @var CacheProvider
+     * @var CacheItemPoolInterface
      */
     protected $cache;
 
@@ -38,10 +38,11 @@ class ReflectionService
     public function returnExpectedType(ModelInterface $model, string $method): array
     {
         $classname = get_class($model);
-        $cacheId = $classname . '_' . $method;
+        // PSR-6 forbids characters like "\" in keys, so the class name is hashed
+        $cacheItem = $this->cache->getItem('ndk_reflection_' . sha1($classname . '::' . $method));
 
-        if ($this->cache->contains($cacheId)) {
-            return $this->cache->fetch($cacheId);
+        if ($cacheItem->isHit()) {
+            return $cacheItem->get();
         }
 
         $methodReflector = new \ReflectionMethod($classname, $method);
@@ -70,7 +71,7 @@ class ReflectionService
 
         $result = [$typeString, $type->isBuiltin(), $subType];
 
-        $this->cache->save($cacheId, $result);
+        $this->cache->save($cacheItem->set($result));
 
         return $result;
     }

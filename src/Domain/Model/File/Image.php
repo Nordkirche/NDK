@@ -49,7 +49,7 @@ class Image extends \Nordkirche\Ndk\Domain\Model\File\File
      *
      * @return string
      */
-    public function render(string $width = null, string $height = null): string
+    public function render(?string $width = null, ?string $height = null): string
     {
         $query = new \Nordkirche\Ndk\Domain\Query\ImageQuery($this->url);
         $width && $query->setWidth($width);

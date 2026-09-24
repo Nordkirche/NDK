@@ -1,4 +1,7 @@
 <phpunit>
+    <php>
+        <ini name="date.timezone" value="UTC"/>
+    </php>
     <testsuites>
         <testsuite name="Unit Tests">
             <directory>./tests</directory>

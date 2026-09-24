@@ -5,7 +5,7 @@ Norddeutschland (Nordkirche) anzubinden. Dazu greift es auf die Nordkirche API (
 Veranstaltungsdaten zu beziehen.
 
 Welchen Daten über die NAPI ausgelesen werden können, findet man in der 
-[Dokumentation zur NAPI](https://nordkirche.gitlab.nordkirche.de/NAPI-blueprint/). Die selben Filter und Objekteigenschaften,
+[Dokumentation zur NAPI](https://nordkirche.naym.space/napi-blueprint/). Die selben Filter und Objekteigenschaften,
 finden sich im NDK wieder. Daher kann diese Dokumentation zusammen mit IntelliSense/Autocomplete einer IDE oder eines
 passenden Editors benutzt werden, um das NDK und seine Objekte einzusetzen.
 
@@ -317,24 +317,28 @@ Siehe `examples/5_logging.php` für ein Anwendungsbeispiel mit Monolog.
 
 ### Caching
 
-Per Default werden HTTP-Anfragen an die NAPI und interne Daten flüchtig in einem Doctrine ArrayCache hinterlegt.
+Per Default werden HTTP-Anfragen an die NAPI und interne Daten flüchtig in einem `ArrayAdapter` aus `symfony/cache`
+hinterlegt.
 
-Es ist möglich PSR-6 kompatible Caches für bestimmte Aspekte der Anwendung einzurichten, z.B. mit dem diversen Treibern
-aus `doctrine/cache`.
+Für alle Caches lassen sich eigene [PSR-6](https://www.php-fig.org/psr/psr-6/) kompatible Cache-Pools
+(`Psr\Cache\CacheItemPoolInterface`) einrichten, z.B. die Adapter aus `symfony/cache` oder die Caches des
+jeweiligen Frameworks.
 
-Eine beispielhafte Konfiguration lässt sich unter `6_Caching.php` einsehen und ausführen.
-
-Das Paket `doctrine/cache` selbst bietet 
-[Support für diverse Backends](http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/caching.html).
+Eine beispielhafte Konfiguration lässt sich unter `examples/6_caching.php` einsehen und ausführen.
 
 Für alle konfigurierbaren Caches ist ein InMemory-Cache als Backend zu empfehlen. Beispielsweise
 [APCu](https://github.com/krakjoe/apcu), [Redis](https://redis.io/) oder [Memcache](https://memcached.org/).
+
+Das NDK versieht die Cache-Keys nicht mit einem eigenen Namespace. Jeder Cache sollte daher einen eigenen Pool
+bzw. einen eigenen Namespace innerhalb des Backends erhalten.
 
 #### HTTP-Cache
 
 ```php
 <?php
-$configuration->setHttpCacheProvider(new \Doctrine\Common\Cache\FilesystemCache('./cache/http'));
+$configuration->setHttpCacheProvider(
+    new \Symfony\Component\Cache\Adapter\FilesystemAdapter('ndk_http', 0, './cache')
+);
 ```
 
 Konfiguriert das Backend für die HTTP-Caching-Middleware. Die NAPI prüft ob Anfragen im Cache neue Daten enthalten und 
@@ -344,8 +348,21 @@ nimmt ggf. die bestehenden Daten aus dem eigenen HTTP-Cache.
 
 ```php
 <?php
-$configuration->setReflectionCacheProvider(new \Doctrine\Common\Cache\FilesystemCache('./cache/reflection'));
-$configuration->setDependencyInjectionCacheProvider(new \Doctrine\Common\Cache\FilesystemCache('./cache/di'));
+$configuration->setReflectionCacheProvider(
+    new \Symfony\Component\Cache\Adapter\FilesystemAdapter('ndk_reflection', 0, './cache')
+);
 ```
 
 Diese internen Caches heben die allgemeine Ausführungsgeschwindikeit des NDK an.
+
+## Upgrade von 2.x auf 3.0
+
+* PHP 8.1 bis 8.5 werden unterstützt
+* `doctrine/cache` wird nicht mehr verwendet. `Configuration::setHttpCacheProvider()` und
+  `Configuration::setReflectionCacheProvider()` erwarten jetzt einen PSR-6 Cache-Pool
+  (`Psr\Cache\CacheItemPoolInterface`) statt eines `Doctrine\Common\Cache\CacheProvider`.
+  Die zugehörigen Getter und `CacheService::getReflectionCache()` liefern ebenfalls PSR-6 Pools.
+* `Configuration::setDependencyInjectionCacheProvider()` und `getDependencyInjectionCacheProvider()` wurden
+  ersatzlos entfernt.
+* Models müssen jede Property, die eine Relation aufnimmt, deklarieren. Andernfalls wirft
+  `AbstractModel::__setProxyInstance()` eine `LogicException` (dynamische Properties sind seit PHP 8.2 deprecated).

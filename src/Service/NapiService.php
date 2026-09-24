@@ -184,7 +184,7 @@ class NapiService
      * @throws Exception\ResourceObjectNotFoundException
      * @throws Exception\TimeoutException
      */
-    public function get(string $path, QueryInterface $query = null)
+    public function get(string $path, ?QueryInterface $query = null)
     {
         if ($query instanceof QueryInterface) {
             $path .= $query;

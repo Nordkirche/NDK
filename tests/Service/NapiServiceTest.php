@@ -162,7 +162,7 @@ class NapiServiceTest extends TestCase
         /** @var NapiService|\PHPUnit_Framework_MockObject_MockObject $napiServiceMock */
         $napiServiceMock = $this
             ->getMockBuilder(NapiService::class)
-            ->setMethods(['buildResponseObject'])
+            ->onlyMethods(['buildResponseObject'])
             ->setConstructorArgs([$stubClient, $resolutionService, $configuration])
             ->getMock();
 

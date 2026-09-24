@@ -4,7 +4,7 @@ namespace Nordkirche\Ndk\Service;
 
 use Nordkirche\Ndk\Helper\MockModel;
 use Nordkirche\Ndk\Helper\MockSiblingModel;
-use Prophecy\Prophecy\ObjectProphecy;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class ModelDecoratorServiceTest extends \Nordkirche\Ndk\Helper\AbstractIntegrationTestCase
 {
@@ -25,15 +25,15 @@ class ModelDecoratorServiceTest extends \Nordkirche\Ndk\Helper\AbstractIntegrati
      */
     public function testDecoratingIdAndType()
     {
-        /** @var MockModel|ObjectProphecy $model */
-        $model = $this->prophesize(MockModel::class);
+        /** @var MockModel|MockObject $model */
+        $model = $this->createMock(MockModel::class);
         $data = [
             'id' => 1,
             'type' => 'This is a very nice string mister.'
         ];
-        $model->setId($data['id'])->shouldBeCalled();
-        $model->setType($data['type'])->shouldBeCalled();
-        $this->testSubject->decorateObject($model->reveal(), $data);
+        $model->expects(self::once())->method('setId')->with($data['id']);
+        $model->expects(self::once())->method('setType')->with($data['type']);
+        $this->testSubject->decorateObject($model, $data);
     }
 
     /**
@@ -41,13 +41,13 @@ class ModelDecoratorServiceTest extends \Nordkirche\Ndk\Helper\AbstractIntegrati
      */
     public function testDecoratingWithString()
     {
-        /** @var MockModel|ObjectProphecy $model */
-        $model = $this->prophesize(MockModel::class);
+        /** @var MockModel|MockObject $model */
+        $model = $this->createMock(MockModel::class);
         $data = [
             'string' => 'This is a very nice string mister.',
         ];
-        $model->setString($data['string'])->shouldBeCalled();
-        $this->testSubject->decorateObject($model->reveal(), $data);
+        $model->expects(self::once())->method('setString')->with($data['string']);
+        $this->testSubject->decorateObject($model, $data);
     }
 
     /**
@@ -55,13 +55,13 @@ class ModelDecoratorServiceTest extends \Nordkirche\Ndk\Helper\AbstractIntegrati
      */
     public function testDecoratingWithInteger()
     {
-        /** @var MockModel|ObjectProphecy $model */
-        $model = $this->prophesize(MockModel::class);
+        /** @var MockModel|MockObject $model */
+        $model = $this->createMock(MockModel::class);
         $data = [
             'integer' => 74718,
         ];
-        $model->setInteger($data['integer'])->shouldBeCalled();
-        $this->testSubject->decorateObject($model->reveal(), $data);
+        $model->expects(self::once())->method('setInteger')->with($data['integer']);
+        $this->testSubject->decorateObject($model, $data);
     }
 
     /**
@@ -69,8 +69,8 @@ class ModelDecoratorServiceTest extends \Nordkirche\Ndk\Helper\AbstractIntegrati
      */
     public function testDecoratingWithObject()
     {
-        /** @var MockModel|ObjectProphecy $model */
-        $model = $this->prophesize(MockModel::class);
+        /** @var MockModel|MockObject $model */
+        $model = $this->createMock(MockModel::class);
 
         $data = [
             'object' => [
@@ -83,8 +83,8 @@ class ModelDecoratorServiceTest extends \Nordkirche\Ndk\Helper\AbstractIntegrati
         $expected->setInteger($data['object']['integer']);
         $expected->setString($data['object']['string']);
 
-        $model->setObject($expected)->shouldBeCalled();
-        $this->testSubject->decorateObject($model->reveal(), $data);
+        $model->expects(self::once())->method('setObject')->with($expected);
+        $this->testSubject->decorateObject($model, $data);
     }
 
     /**

@@ -133,7 +133,7 @@ class ModelDecoratorService
                 $subModel = $this->factoryService->make($subType);
                 $subModel = $this->decorateObject($subModel, $entry);
             }
-            $storage->getObjects()->attach($subModel);
+            $storage->getObjects()->offsetSet($subModel);
         }
         $storage->rewind();
 

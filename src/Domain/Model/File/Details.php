@@ -56,7 +56,7 @@ class Details implements \Nordkirche\Ndk\Domain\Interfaces\ModelInterface
     /**
      * @param string $description
      */
-    public function setDescription(string $description = null)
+    public function setDescription(?string $description = null)
     {
         $this->description = $description;
     }
@@ -72,7 +72,7 @@ class Details implements \Nordkirche\Ndk\Domain\Interfaces\ModelInterface
     /**
      * @param string $alternative
      */
-    public function setAlternative(string $alternative = null)
+    public function setAlternative(?string $alternative = null)
     {
         $this->alternative = $alternative;
     }
@@ -88,7 +88,7 @@ class Details implements \Nordkirche\Ndk\Domain\Interfaces\ModelInterface
     /**
      * @param string $caption
      */
-    public function setCaption(string $caption = null)
+    public function setCaption(?string $caption = null)
     {
         $this->caption = $caption;
     }
@@ -104,7 +104,7 @@ class Details implements \Nordkirche\Ndk\Domain\Interfaces\ModelInterface
     /**
      * @param string $license
      */
-    public function setLicense(string $license = null)
+    public function setLicense(?string $license = null)
     {
         $this->license = $license;
     }
@@ -120,7 +120,7 @@ class Details implements \Nordkirche\Ndk\Domain\Interfaces\ModelInterface
     /**
      * @param string $copyright
      */
-    public function setCopyright(string $copyright = null)
+    public function setCopyright(?string $copyright = null)
     {
         $this->copyright = $copyright;
     }
@@ -136,7 +136,7 @@ class Details implements \Nordkirche\Ndk\Domain\Interfaces\ModelInterface
     /**
      * @param string $relatedFiles
      */
-    public function setRelatedFiles(string $relatedFiles = null)
+    public function setRelatedFiles(?string $relatedFiles = null)
     {
         $this->relatedFiles = $relatedFiles;
     }
@@ -152,7 +152,7 @@ class Details implements \Nordkirche\Ndk\Domain\Interfaces\ModelInterface
     /**
      * @param string $licenseVersion
      */
-    public function setLicenseVersion(string $licenseVersion = null)
+    public function setLicenseVersion(?string $licenseVersion = null)
     {
         $this->licenseVersion = $licenseVersion;
     }
@@ -168,7 +168,7 @@ class Details implements \Nordkirche\Ndk\Domain\Interfaces\ModelInterface
     /**
      * @param string $copyrightUrl
      */
-    public function setCopyrightUrl(string $copyrightUrl = null)
+    public function setCopyrightUrl(?string $copyrightUrl = null)
     {
         $this->copyrightUrl = $copyrightUrl;
     }

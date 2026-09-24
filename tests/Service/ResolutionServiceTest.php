@@ -463,7 +463,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
 
         $mockModel->getObject(); // this should trigger a log entry
 
-        $log = $handler->close();
+        $log = $handler->getLog();
 
         self::assertNotEmpty($log);
         self::assertCount(1, $log);
@@ -622,7 +622,7 @@ class ResolutionServiceTest extends AbstractIntegrationTestCase
             )
         );
 
-        $log = $handler->close();
+        $log = $handler->getLog();
 
         self::assertNotEmpty($log);
         self::assertCount(1, $log);

@@ -55,7 +55,6 @@ abstract class AbstractIntegrationTestCase extends TestCase
 
         $reflection = new ReflectionClass($napiService);
         $reflectionProperty = $reflection->getProperty('client');
-        $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue($napiService, $client);
     }
 }

@@ -17,7 +17,7 @@ class RequestException extends NdkException
      * @param string $uri - The URI the request was sent to
      * @param \Throwable|null $previous
      */
-    public function __construct($message = "", $code = 0, $uri = '', \Throwable $previous = null)
+    public function __construct($message = "", $code = 0, $uri = '', ?\Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

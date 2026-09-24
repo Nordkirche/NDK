@@ -4,9 +4,8 @@
 $configuration = include '1_basic_setup.php';
 
 
-$configuration->setHttpCacheProvider(new \Doctrine\Common\Cache\FilesystemCache('./cache/http'));
-$configuration->setReflectionCacheProvider(new \Doctrine\Common\Cache\FilesystemCache('./cache/reflection'));
-$configuration->setDependencyInjectionCacheProvider(new \Doctrine\Common\Cache\FilesystemCache('./cache/di'));
+$configuration->setHttpCacheProvider(new \Symfony\Component\Cache\Adapter\FilesystemAdapter('ndk_http', 0, './cache'));
+$configuration->setReflectionCacheProvider(new \Symfony\Component\Cache\Adapter\FilesystemAdapter('ndk_reflection', 0, './cache'));
 
 $api = new \Nordkirche\Ndk\Api($configuration);
 $repository = $api->factory(\Nordkirche\Ndk\Domain\Repository\InstitutionRepository::class);
