@@ -76,6 +76,10 @@ class FactoryService
                         'logger'
                     );
 
+                    foreach ($configuration->getMiddlewares() as $name => $middleware) {
+                        $stack->push($middleware, $name);
+                    }
+
                     $clientConfiguration['handler'] = $stack;
 
                     $client = new Client($clientConfiguration);

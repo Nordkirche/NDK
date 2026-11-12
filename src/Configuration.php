@@ -109,6 +109,13 @@ class Configuration
     ];
 
     /**
+     * Additional Guzzle middlewares, keyed by name
+     *
+     * @var array<string, callable>
+     */
+    protected $middlewares = [];
+
+    /**
      * The current appilication context. Uses self::CONTEXT_*.
      * @var string
      */
@@ -506,5 +513,27 @@ class Configuration
         $this->resolutionProxyDisabled = $resolutionProxyDisabled;
 
         return $this;
+    }
+
+    /**
+     * Adds a Guzzle middleware to the HTTP client of the NDK, e.g. to measure
+     * response times. It is added as the outermost layer, so it also sees
+     * responses served by the HTTP cache. Must be called before the first request.
+     *
+     * @param callable $middleware Guzzle middleware: fn(callable $handler): callable
+     */
+    public function addMiddleware(callable $middleware, string $name): Configuration
+    {
+        $this->middlewares[$name] = $middleware;
+
+        return $this;
+    }
+
+    /**
+     * @return array<string, callable>
+     */
+    public function getMiddlewares(): array
+    {
+        return $this->middlewares;
     }
 }

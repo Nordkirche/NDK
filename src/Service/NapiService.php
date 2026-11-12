@@ -244,7 +244,7 @@ class NapiService
                     );
                 }
 
-                if ($response->getStatusCode() > 400 && $response->getStatusCode() < 500) {
+                if ($response->getStatusCode() >= 400 && $response->getStatusCode() < 500) {
                     throw new Exception\ClientException(
                         'Requesting the resource ' . $path . ' ended in an client side error. ' .
                         'Status Code: ' . $response->getStatusCode() . "\n" . print_r(

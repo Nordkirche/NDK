@@ -27,6 +27,12 @@ abstract class AbstractQuery implements QueryInterface
      */
     protected $facets = [];
 
+    /**
+     * Sparse fieldsets: only these fields per resource type, e.g. ['institutions' => ['id']]
+     * @var array<string, string[]>
+     */
+    protected $fields = [];
+
     public function __toString(): string
     {
         $string = '';
@@ -60,6 +66,12 @@ abstract class AbstractQuery implements QueryInterface
 
         if ((bool)$this->facets) {
             $parameters['facets'] = implode(',', $this->facets);
+        }
+
+        foreach ($this->fields as $type => $fields) {
+            if ((bool)$fields) {
+                $parameters['fields'][$type] = implode(',', $fields);
+            }
         }
 
         return $parameters;
@@ -187,5 +199,28 @@ abstract class AbstractQuery implements QueryInterface
     public function setFacets(array $facets)
     {
         $this->facets = $facets;
+    }
+
+    /**
+     * @return array<string, string[]>
+     */
+    public function getFields(): array
+    {
+        return $this->fields;
+    }
+
+    /**
+     * Sparse fieldsets (JSON:API "fields"): only load the given fields per resource type,
+     * e.g. ['institutions' => ['id']] or ['institutions' => ['name'], 'addresses' => ['city']]
+     *
+     * @param array<string, string[]> $fields
+     *
+     * @return AbstractQuery
+     */
+    public function setFields(array $fields): AbstractQuery
+    {
+        $this->fields = $fields;
+
+        return $this;
     }
 }

@@ -123,6 +123,16 @@ Objekte wie das `InstitutionQuery` bieten verschiedene Optionen, um eine Anfrage
 Optionen die gewünschte Seite `setPageNumber()` und die Einträge pro Seite `setPageSize()` zu definieren,
 können wir bei Institutionen und Personen z.B. nach Postleitzahl filtern.
 
+Mit `setFields()` lädt eine Abfrage nur die angegebenen Felder je Typ (JSON:API „Sparse
+Fieldsets“), z. B. nur die IDs der Institutionen eines Orts:
+
+```php
+<?php
+$query = new \Nordkirche\Ndk\Domain\Query\InstitutionQuery();
+$query->setCities(['Kiel'])->setPageSize(500);
+$query->setFields(['institutions' => ['id']]);
+```
+
 Hier empfiehlt es sich, einmal alle Setter einer `*Query` Klasse anzusehen. Auch die 
 [Dokumentation der NAPI](https://nordkirche.gitlab.nordkirche.de/NAPI-blueprint/) bietet hier Aufschluss über die 
 möglichen Filter.
@@ -314,6 +324,21 @@ $configuration->setLogger($logger);
 ```
 
 Siehe `examples/5_logging.php` für ein Anwendungsbeispiel mit Monolog.
+
+### Eigene Middleware
+
+Über `addMiddleware()` lässt sich eine Guzzle-Middleware in den HTTP-Client des NDK
+einhängen, z. B. um Antwortzeiten zu messen. Sie liegt außen um Cache und Logger und
+sieht daher auch Antworten aus dem HTTP-Cache (Header `X-Kevinrob-Cache`).
+
+```php
+$configuration->addMiddleware(
+    \GuzzleHttp\Middleware::tap(null, function ($request, $options, $promise) {
+        // ...
+    }),
+    'myMiddleware'
+);
+```
 
 ### Caching
 

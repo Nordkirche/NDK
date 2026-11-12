@@ -279,4 +279,21 @@ class AbstractQueryTest extends TestCase
             'QueryParameterValue Objects are not resolved to a string for usage'
         );
     }
+
+    /**
+     * @group unit
+     */
+    public function testSparseFieldsets()
+    {
+        $testSubject = new MockQuery();
+        self::assertArrayNotHasKey('fields', $testSubject->returnUrlParameters(), 'No fields without setFields()');
+
+        $testSubject->setFields(['institutions' => ['id'], 'addresses' => ['city', 'zip_code'], 'people' => []]);
+        self::assertSame(
+            ['institutions' => 'id', 'addresses' => 'city,zip_code'],
+            $testSubject->returnUrlParameters()['fields'],
+            'Fields are joined per type, empty types are skipped'
+        );
+        self::assertSame('?fields%5Binstitutions%5D=id&fields%5Baddresses%5D=city%2Czip_code', (string)$testSubject);
+    }
 }
