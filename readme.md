@@ -57,7 +57,7 @@ Query-Klassen, um besondere Filter anzuwenden. Diese folgenden dem Namenschema
 und sind immer von der Klasse `\Nordkirche\Ndk\Domain\Query\PageQuery` abgeleitet.
 
 Die Verfügbaren Repositories und Filter-Optionen in Queries sind equivalent zu den Endpunkten und Filter-Optionen in der
-[Dokumentation der NAPI](https://nordkirche.gitlab.nordkirche.de/NAPI-blueprint/).
+[Dokumentation der NAPI](https://nordkirche.naym.space/napi-blueprint/).
 
 ### Beispiel-Abfrage
 
@@ -133,8 +133,19 @@ $query->setCities(['Kiel'])->setPageSize(500);
 $query->setFields(['institutions' => ['id']]);
 ```
 
+Veranstaltungen lassen sich mit `EventQuery::setEventTypes()` nach mehreren Veranstaltungstypen gleichzeitig
+filtern. Das NDK sendet die Werte kommagetrennt (`filter[event_type]=Gottesdienst,Konzert`). Die NAPI unterstützt
+das, auch wenn es in ihrer Dokumentation nicht beschrieben ist. `setEventType()` für einen einzelnen Typ funktioniert
+weiterhin.
+
+```php
+<?php
+$query = new \Nordkirche\Ndk\Domain\Query\EventQuery();
+$query->setEventTypes(['Gottesdienst', 'Konzert']);
+```
+
 Hier empfiehlt es sich, einmal alle Setter einer `*Query` Klasse anzusehen. Auch die 
-[Dokumentation der NAPI](https://nordkirche.gitlab.nordkirche.de/NAPI-blueprint/) bietet hier Aufschluss über die 
+[Dokumentation der NAPI](https://nordkirche.naym.space/napi-blueprint/) bietet hier Aufschluss über die 
 möglichen Filter.
 
 ## Resourcen-Objekte
@@ -340,6 +351,8 @@ $configuration->addMiddleware(
 );
 ```
 
+Die TYPO3-Extension `nkc_base` misst auf diesem Weg den NAPI-Traffic für ihr Backend-Modul „NAPI-Status“.
+
 ### Caching
 
 Per Default werden HTTP-Anfragen an die NAPI und interne Daten flüchtig in einem `ArrayAdapter` aus `symfony/cache`
@@ -391,3 +404,6 @@ Diese internen Caches heben die allgemeine Ausführungsgeschwindikeit des NDK an
   ersatzlos entfernt.
 * Models müssen jede Property, die eine Relation aufnimmt, deklarieren. Andernfalls wirft
   `AbstractModel::__setProxyInstance()` eine `LogicException` (dynamische Properties sind seit PHP 8.2 deprecated).
+* `EventQuery`: Die Property `$eventType` (string) heißt jetzt `$eventTypes` (array), damit nach mehreren
+  Veranstaltungstypen gefiltert werden kann. `setEventType()` und `getEventType()` bleiben erhalten. Anpassen müssen
+  sich nur Unterklassen, die direkt auf die Property zugreifen.

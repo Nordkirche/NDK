@@ -111,7 +111,7 @@ class NapiServiceTest extends TestCase
             'Does not containt correct model');
     }
 
-    public function urlProvider()
+    public static function urlProvider()
     {
         return [
             ['napi://resource/institutions/1'],
@@ -191,7 +191,7 @@ class NapiServiceTest extends TestCase
         self::assertTrue($object1 === $object2);
     }
 
-    public function resourceObjectProvider()
+    public static function resourceObjectProvider()
     {
         $resourceObject[] = new MockResourceObject;
         $resourceObject[] = new MockResourceObject;

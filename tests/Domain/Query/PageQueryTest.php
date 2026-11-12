@@ -13,7 +13,7 @@ class MockPageQuery extends PageQuery
 class PageQueryTest extends TestCase
 {
 
-    public function subjectProvider()
+    public static function subjectProvider()
     {
         return [
             [new MockPageQuery()]

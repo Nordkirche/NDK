@@ -69,7 +69,7 @@ class RepositoryTest extends TestCase
         }
     }
 
-    public function paginationProvider()
+    public static function paginationProvider()
     {
         return [
             [1, 5],

@@ -49,7 +49,7 @@ class ResolutionProxyTest extends AbstractIntegrationTestCase
         );
     }
 
-    public function resourcePlaceHolderRequestDataProvider()
+    public static function resourcePlaceHolderRequestDataProvider()
     {
         return [
             '404' => [new GuzzleResponse(404, [], ''), ResourceObjectNotFoundException::class],
@@ -57,7 +57,7 @@ class ResolutionProxyTest extends AbstractIntegrationTestCase
         ];
     }
 
-    public function bubblingExceptionRequestDataProvider()
+    public static function bubblingExceptionRequestDataProvider()
     {
         return [
             '401' => [new GuzzleResponse(401, [], ''), AccessDeniedException::class],

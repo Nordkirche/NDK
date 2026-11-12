@@ -226,7 +226,7 @@ class EventQuery extends PageQuery
      */
     public function getEventType(): string
     {
-        return !empty($this->eventType[0]) ? $this->eventType[0] : '';
+        return (string)($this->eventTypes[0] ?? '');
     }
 
     /**

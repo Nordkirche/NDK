@@ -22,14 +22,14 @@ class MockQueryParameterValue implements \Nordkirche\Ndk\Domain\Interfaces\Query
 class AbstractQueryTest extends TestCase
 {
 
-    public function subjectProvider()
+    public static function subjectProvider()
     {
         return [
             [new MockQuery()]
         ];
     }
 
-    public function specialValueProvider()
+    public static function specialValueProvider()
     {
         return [
             [false, 'False should not be seen as empty'],
@@ -38,7 +38,7 @@ class AbstractQueryTest extends TestCase
         ];
     }
 
-    public function emptyValueProvider()
+    public static function emptyValueProvider()
     {
         return [
             [null, 'null should be seen as empty'],
@@ -47,7 +47,7 @@ class AbstractQueryTest extends TestCase
         ];
     }
 
-    public function resourceUrlProvider()
+    public static function resourceUrlProvider()
     {
         return [
             ['napi://resource/people/1', '?filter%5Btest_property%5D=1'],
